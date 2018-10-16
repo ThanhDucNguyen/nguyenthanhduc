@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
+    <title>WitBus</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+
+    <!-- animation CSS -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/spinners.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Menu</span></h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="/bus" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bus</a>
+                    </li>
+                    <li>
+                        <a href="users.html" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Users</a>
+                    </li>
+                    <li>
+                        <a href="booking.html" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Booking</a>
+                    </li>
+                    <li>
+                        <a href="/seat" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Seat</a>
+                    </li>
+                    <li>
+                        <a href="/bus-owner" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>Bus Owner</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <th:block th:if="${#lists.isEmpty(owner)}">
+                        <h3>No contacts</h3>
+                    </th:block>
+
+                    <th:block th:unless="${#lists.isEmpty(owner)}">
+                    <h1 style="color: #f00; text-align: center;font-weight:500;">WITBUS</h1>
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+
+                            <h3 class="box-title">BUS OWNER ADD</h3>
+                            <div class="table-responsive">
+                                <form action="#" th:action="@{/busowner/save}" th:object="${owner}"
+                                      method="POST" novalidate="novalidate">
+                                    <input type="hidden" th:field="*{bus_owner_id}" />
+                                  <div class="container">
+
+                                    <label ><b>Name</b></label>
+                                    <input type="text" placeholder="Enter Name" th:field="*{bus_owner_name}"/>
+
+                                    <button type="submit">ADD</button>
+                                  </div>
+                                </form>
+                            </div>
+                        </div></div></th:block>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+</body>
+
+</html>
