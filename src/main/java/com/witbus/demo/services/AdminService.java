@@ -23,4 +23,6 @@ public interface AdminService {
     BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO);
 
     BusOwnerDTO delete(Long id);
+
+    BusDTO addBus(BusDTO busDTO);
 }

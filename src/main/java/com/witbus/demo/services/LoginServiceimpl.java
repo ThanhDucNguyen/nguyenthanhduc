@@ -24,7 +24,7 @@ public class LoginServiceimpl implements LoginService{
     }
 
     @Override
-    public UserDTO register(UserDTO userDTO) {
+    public void register(UserDTO userDTO) {
         User user1 = userRepository.checkUserName(userDTO.getName());
         if (user1 == null){
             User user = new User();
@@ -35,6 +35,5 @@ public class LoginServiceimpl implements LoginService{
             user.setPassword(userDTO.getPassword());
             userRepository.save(user);
         }
-        return null;
     }
 }

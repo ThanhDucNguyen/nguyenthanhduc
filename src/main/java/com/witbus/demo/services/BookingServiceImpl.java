@@ -17,7 +17,7 @@ public class BookingServiceImpl implements BookingService {
     private UserRepository userRepository;
     private BookingRepository bookingRepository;
 
-    public BookingServiceImpl(BusOwnerRepository bus_ownerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository ){
+    public BookingServiceImpl(BusOwnerRepository bus_ownerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         this.busRepository = busRepository;
         this.bus_ownerRepository = bus_ownerRepository;
         this.seatRepository = seatRepository;
@@ -39,21 +39,20 @@ public class BookingServiceImpl implements BookingService {
         booking.setPhone(bookingDTO.getPhone());
         booking.setEmail(bookingDTO.getEmail());
         Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
-        User user ;
-        if (userOptional.isPresent()){
+        User user;
+        if (userOptional.isPresent()) {
             return;
-        }
-        else {
+        } else {
             User editUser = userOptional.get();
             user = userRepository.save(editUser);
         }
         Optional<Seat> seatOptional = seatRepository.findById(bookingDTO.getSeat().getId());
         Seat seat;
-        if (seatOptional.isPresent()){
+        if (seatOptional.isPresent()) {
             Seat editSeat = seatOptional.get();
             editSeat.setStatus(bookingDTO.getSeat().getStatus());
-            seat =seatRepository.save(editSeat);
-        }else {
+            seat = seatRepository.save(editSeat);
+        } else {
             return;
         }
         booking.setUser(user);

@@ -10,10 +10,7 @@ public class BusDTO {
     private String destination;
     private String startTime;
     private String endTime;
-    private Integer distanceTime;
-    private Integer priceDefault;
-    private BusOwnerDTO busOwner;
-    private List<SeatDTO> seats;
+    private String date;
 
     @Override
     public String toString() {
@@ -25,12 +22,26 @@ public class BusDTO {
                 ", destination='" + destination + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", date='" + date + '\'' +
                 ", distanceTime=" + distanceTime +
                 ", priceDefault=" + priceDefault +
                 ", busOwner=" + busOwner +
                 ", seats=" + seats +
                 '}';
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    private Integer distanceTime;
+    private Integer priceDefault;
+    private BusOwnerDTO busOwner;
+    private List<SeatDTO> seats;
 
     public Long getId() {
         return id;

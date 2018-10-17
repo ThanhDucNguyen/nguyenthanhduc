@@ -24,6 +24,9 @@ public class Bus implements Serializable {
     @Column(name = "bus_destination")
     private String destination;
 
+    @Column(name = "bus_date")
+    private String date;
+
     @Column(name = "bus_start_time")
     private String startTime;
 
@@ -42,6 +45,14 @@ public class Bus implements Serializable {
 
     @OneToMany(mappedBy = "bus", fetch = FetchType.EAGER)
     private Set<Seat> seats;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public Long getId() {
         return id;

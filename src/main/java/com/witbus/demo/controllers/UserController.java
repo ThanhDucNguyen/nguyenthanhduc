@@ -30,8 +30,8 @@ public class UserController {
     public @ResponseBody
     Response<UserDTO> register(@RequestBody UserDTO userDTO){
         User user = new User();
-        userDTO = loginService.register(userDTO);
-        if(user.getName() == null) {
+        loginService.register(userDTO);
+        if(userDTO.getName() == null) {
             return new Response<>(true, userDTO, "Successful Login");
         }
         else {

@@ -39,15 +39,15 @@ public class AdminController {
         busOwnerDTO = adminService.addBusOwner(busOwnerDTO);
         return new Response<>(true, busOwnerDTO, "Successful full!");
     }
-//    @GetMapping("/busOwnerDelete")
-//    public Response<BusOwnerDTO> delete(@PathVariable Long id,BusOwnerDTO busOwnerDTO) {
-//        busOwnerDTO = adminService.delete(id);
-//        return new Response<>(true, busOwnerDTO, "Successful full!");
-//    }
     @GetMapping(value = "/bus")
     public Response<List<BusDTO>> bus() {
         List<BusDTO> busSeatDTOList = adminService.listBus();
         return new Response<>(true, busSeatDTOList, "Succsess full!");
+    }
+    @PostMapping(value = "/bus-Process")
+    public Response<BusDTO> addBuss(@RequestBody BusDTO busDTO){
+        busDTO = adminService.addBus(busDTO);
+        return new Response<>(true, busDTO, "Successful full!");
     }
     @GetMapping(value = "/seat")
     public Response<List<SeatDTO>> seat() {

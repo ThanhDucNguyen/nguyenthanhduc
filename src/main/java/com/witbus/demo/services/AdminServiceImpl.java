@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -79,6 +80,33 @@ public class AdminServiceImpl implements AdminService {
             bookingDTOS.add(busDTO);
         }
         return bookingDTOS;
+    }
+
+    @Override
+    public BusDTO addBus(BusDTO busDTO) {
+        Bus bus = new Bus();
+        bus.setName(busDTO.getName());
+        bus.setPlate(busDTO.getPlate());
+        bus.setOrigin(busDTO.getOrigin());
+        bus.setDestination(busDTO.getDestination());
+        bus.setStartTime(busDTO.getStartTime());
+        bus.setEndTime(busDTO.getEndTime());
+        bus.setDistanceTime(busDTO.getDistanceTime());
+        bus.setPriceDefault(busDTO.getPriceDefault());
+        bus.setDate(busDTO.getDate());
+        Optional<BusOwner> busOwnerOptional = bus_ownerRepository.findById(busDTO.getBusOwner().getId());
+        BusOwner busOwner;
+        if (busOwnerOptional.isPresent())
+        {
+            BusOwner editUser = busOwnerOptional.get();
+            busOwner = bus_ownerRepository.save(editUser);
+        }
+        else {
+            return null;
+        }
+        bus.setBusOwner(busOwner);
+        busRepository.save(bus);
+        return null;
     }
 
     @Override

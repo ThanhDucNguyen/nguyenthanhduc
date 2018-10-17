@@ -6,5 +6,5 @@ import com.witbus.demo.dto.UserDTO;
 public interface LoginService {
     UserDTO login(UserDTO userDTO);
 
-    UserDTO register(UserDTO userDTO);
+    void register(UserDTO userDTO);
 }
