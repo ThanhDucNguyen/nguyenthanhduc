@@ -1,9 +1,11 @@
 package com.witbus.demo.controllers;
 
 import com.witbus.demo.dao.models.User;
+import com.witbus.demo.dao.repository.UserRepository;
 import com.witbus.demo.dto.Utils.Response;
 import com.witbus.demo.dto.UserDTO;
 import com.witbus.demo.services.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
+    @Autowired
+    private UserRepository userRepository;
+
     private LoginService loginService;
 
     public UserController(LoginService loginService) {
@@ -29,9 +34,9 @@ public class UserController {
     @PostMapping(value = "/register")
     public @ResponseBody
     Response<UserDTO> register(@RequestBody UserDTO userDTO){
-        User user = new User();
-        loginService.register(userDTO);
-        if(userDTO.getName() == null) {
+        User user = userRepository.checkUserName(userDTO.getName());
+        if (user == null){
+            loginService.register(userDTO);
             return new Response<>(true, userDTO, "Successful Login");
         }
         else {
