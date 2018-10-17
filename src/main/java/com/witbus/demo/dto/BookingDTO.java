@@ -1,41 +1,71 @@
 package com.witbus.demo.dto;
 
-import com.witbus.demo.dao.models.Seat;
-import com.witbus.demo.dao.models.User;
-
 import java.util.Random;
 
 public class BookingDTO {
     private Long id;
-    private int tickets;
     private Boolean pay;
     private Integer number ;
     private Integer price;
-
+    private String email;
+    private String phone;
+    private String name;
+    private SeatDTO seat;
+    private UserDTO user;
 
     @Override
     public String toString() {
         return "BookingDTO{" +
                 "id=" + id +
-                ", tickets=" + tickets +
                 ", pay=" + pay +
                 ", number=" + number +
                 ", price=" + price +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
                 ", seat=" + seat +
                 ", user=" + user +
                 '}';
     }
 
+    public BookingDTO() {
+        Random rd = new Random();
+        number =  rd.nextInt();
+    }
+
+
     public Integer getNumber() {
         return number;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setNumber(Integer number) {
         this.number = number;
     }
 
-    private SeatDTO seat;
-    private UserDTO user;
+
 
     public Long getId() {
         return id;
@@ -43,14 +73,6 @@ public class BookingDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(int tickets) {
-        this.tickets = tickets;
     }
 
     public Boolean getPay() {

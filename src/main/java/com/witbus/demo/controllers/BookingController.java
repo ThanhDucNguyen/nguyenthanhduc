@@ -1,26 +1,22 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dto.Response;
-import com.witbus.demo.dao.models.User;
+import com.witbus.demo.dto.Utils.Response;
 import com.witbus.demo.dto.BookingDTO;
-import com.witbus.demo.dto.UserDTO;
-import com.witbus.demo.services.WitBusService;
+import com.witbus.demo.services.BookingService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class BookingController {
-    private WitBusService witBusService;
+    private BookingService bookingService;
 
-    public BookingController(WitBusService witBusService) {
-        this.witBusService = witBusService;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
     @PostMapping(value = "/booking")
     public @ResponseBody
     Response addBooking(@RequestBody BookingDTO bookingDTO){
-        witBusService.booking(bookingDTO);
+        bookingService.booking(bookingDTO);
         Response<BookingDTO> response = new Response<>(true,bookingDTO,"Successful!");
         return response;
     }

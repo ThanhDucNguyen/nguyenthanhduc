@@ -1,6 +1,7 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dto.Response;
+import com.witbus.demo.dao.models.User;
+import com.witbus.demo.dto.Utils.Response;
 import com.witbus.demo.dto.UserDTO;
 import com.witbus.demo.services.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,14 @@ public class UserController {
     }
     @PostMapping(value = "/register")
     public @ResponseBody
-    Response register(@RequestBody UserDTO userDTO){
-        loginService.register(userDTO);
-        return new Response<>(true, userDTO, "Successful Register");
+    Response<UserDTO> register(@RequestBody UserDTO userDTO){
+        User user = new User();
+        userDTO = loginService.register(userDTO);
+        if(user.getName() == null) {
+            return new Response<>(true, userDTO, "Successful Login");
+        }
+        else {
+            return new Response<>(false, null, " User not exits");
+        }
     }
 }

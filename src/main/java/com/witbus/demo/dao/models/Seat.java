@@ -87,4 +87,7 @@ public class Seat implements Serializable {
     public void setSeatType(String seatType) {
         this.seatType = seatType;
     }
+
+    public void setStatus(boolean status) {
+    }
 }

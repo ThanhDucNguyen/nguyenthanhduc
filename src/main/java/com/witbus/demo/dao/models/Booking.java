@@ -13,19 +13,13 @@ public class Booking implements Serializable {
     @Column(name = "booking_id")
     private Long id;
 
-    @Column(name = "booking_tickets")
-    private int tickets;
-
     @Column(name = "booking_ispaid")
     private Boolean pay;
 
     @Column(name = "booking_number")
     private Integer number ;
 
-    public Booking() {
-        Random rd = new Random();
-        number =  rd.nextInt();
-    }
+
 
     @Column(name = "booking_date")
     @Temporal(TemporalType.DATE)
@@ -33,6 +27,15 @@ public class Booking implements Serializable {
 
     @Column(name = "booking_price")
     private Integer price;
+
+    @Column(name = "booking_name")
+    private String name;
+
+    @Column(name = "booking_phone")
+    private String phone;
+
+    @Column(name = "booking_email")
+    private String email;
 
     @ManyToOne
     @JoinColumn(name = "seat_id")
@@ -42,20 +45,36 @@ public class Booking implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(int tickets) {
-        this.tickets = tickets;
     }
 
     public Boolean getPay() {
