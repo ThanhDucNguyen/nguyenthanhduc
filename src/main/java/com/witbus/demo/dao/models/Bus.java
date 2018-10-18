@@ -40,7 +40,7 @@ public class Bus implements Serializable {
     private Integer priceDefault;
 
     @ManyToOne
-    @JoinColumn(name = "bus_owner")
+    @JoinColumn(name = "bus_owner_id")
     private BusOwner busOwner;
 
     @OneToMany(mappedBy = "bus", fetch = FetchType.EAGER)

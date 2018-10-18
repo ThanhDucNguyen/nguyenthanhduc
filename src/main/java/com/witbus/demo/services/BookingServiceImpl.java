@@ -4,8 +4,12 @@ import com.witbus.demo.dao.models.*;
 import com.witbus.demo.dao.repository.*;
 import com.witbus.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.*;
 
 @Service
@@ -16,6 +20,9 @@ public class BookingServiceImpl implements BookingService {
     private SeatRepository seatRepository;
     private UserRepository userRepository;
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private JavaMailSender sender;
 
     public BookingServiceImpl(BusOwnerRepository bus_ownerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         this.busRepository = busRepository;
@@ -58,5 +65,33 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(user);
         booking.setSeat(seat);
         Booking saveBooking = bookingRepository.save(booking);
+
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+
+            helper.setTo("ntduc2812@gmail.com");
+            helper.setText("\nHi: " + saveBooking.getName() +
+                            "\nPhone: " + saveBooking.getPhone() +
+                            "\nEmail: " + saveBooking.getEmail() +
+                            "\nBus Owner: "+saveBooking.getSeat().getBus().getBusOwner().getName()+
+                            "\nBus Name: "+saveBooking.getSeat().getBus().getName()+
+                            "\nOrigin: "+saveBooking.getSeat().getBus().getOrigin()+
+                            " ---> Destination: "+saveBooking.getSeat().getBus().getDestination()+
+                            "\nDate: "+saveBooking.getSeat().getBus().getDate()+
+                            "\nStart time: "+saveBooking.getSeat().getBus().getStartTime()+
+                            "\nSeat: " + saveBooking.getSeat().getName() +
+                            "\nPrice: " + saveBooking.getSeat().getPrice() +
+                            "\nPay: " + saveBooking.getPay() +
+                            "\nCode number booking: " + saveBooking.getNumber() +
+                            "\n-------------------------------------------" +
+                            "\nTHANK YOU FOR READING THE LETTER"
+            );
+            helper.setSubject("Mail From Spring Boot");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        sender.send(message);
     }
 }

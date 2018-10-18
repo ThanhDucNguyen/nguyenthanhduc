@@ -19,8 +19,6 @@ public class Booking implements Serializable {
     @Column(name = "booking_number")
     private Integer number ;
 
-
-
     @Column(name = "booking_date")
     @Temporal(TemporalType.DATE)
     private Date date = new Date();

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "busowner")
+@Table(name = "bus_owner")
 public class BusOwner implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
