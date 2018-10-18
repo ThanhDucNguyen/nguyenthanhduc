@@ -22,8 +22,7 @@ public class BookingController {
     }
 
     @PostMapping(value = "/booking")
-    public @ResponseBody
-    Response addBooking(@RequestBody BookingDTO bookingDTO) {
+    public Response<BookingDTO> addBooking(@RequestBody BookingDTO bookingDTO) {
         bookingService.booking(bookingDTO);
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -51,8 +50,7 @@ public class BookingController {
             e.printStackTrace();
         }
         sender.send(message);
-        Response<BookingDTO> response = new Response<>(true, bookingDTO, "Successful!");
-        return response;
+         return new Response<>(true, bookingDTO, "Successful!");
     }
 
 }

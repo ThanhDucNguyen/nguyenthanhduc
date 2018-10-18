@@ -40,7 +40,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setEmail(bookingDTO.getEmail());
         Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
         User user;
-        if (userOptional.isPresent()) {
+        if (!userOptional.isPresent()) {
             return;
         } else {
             User editUser = userOptional.get();
