@@ -71,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
 
         try {
 
-            helper.setTo("ntduc2812@gmail.com");
+            helper.setTo(saveBooking.getEmail());
             helper.setText("\nHi: " + saveBooking.getName() +
                             "\nPhone: " + saveBooking.getPhone() +
                             "\nEmail: " + saveBooking.getEmail() +
