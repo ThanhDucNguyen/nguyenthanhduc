@@ -5,13 +5,20 @@ import java.util.Random;
 public class BookingDTO {
     private Long id;
     private Boolean pay;
-    private Integer number ;
+    private Integer number;
     private Integer price;
     private String email;
     private String phone;
     private String name;
     private SeatDTO seat;
     private UserDTO user;
+
+    public BookingDTO() {
+        int min = 1;
+        int max = 9999999;
+        Random rd = new Random();
+        number = min + rd.nextInt(max - min);
+    }
 
     @Override
     public String toString() {
@@ -28,15 +35,14 @@ public class BookingDTO {
                 '}';
     }
 
-    public BookingDTO() {
-        Random rd = new Random();
-        number =  rd.nextInt();
-    }
-
-
     public Integer getNumber() {
         return number;
     }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -61,12 +67,6 @@ public class BookingDTO {
         this.name = name;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-
-
     public Long getId() {
         return id;
     }
@@ -90,7 +90,6 @@ public class BookingDTO {
     public void setPrice(Integer price) {
         this.price = price;
     }
-
 
     public SeatDTO getSeat() {
         return seat;

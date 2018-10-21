@@ -82,7 +82,7 @@ public class BookingServiceImpl implements BookingService {
                             "\nDate: "+saveBooking.getSeat().getBus().getDate()+
                             "\nStart time: "+saveBooking.getSeat().getBus().getStartTime()+
                             "\nSeat: " + saveBooking.getSeat().getName() +
-                            "\nPrice: " + saveBooking.getSeat().getPrice() +
+                            "\nPrice: " + saveBooking.getPrice() +
                             "\nPay: " + saveBooking.getPay() +
                             "\nCode number booking: " + saveBooking.getNumber() +
                             "\n-------------------------------------------" +

@@ -1,10 +1,8 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dto.BusDTO;
-import com.witbus.demo.dto.BusOwnerDTO;
+import com.witbus.demo.dao.models.Offer;
+import com.witbus.demo.dto.*;
 import com.witbus.demo.dto.Utils.Response;
-import com.witbus.demo.dto.SeatDTO;
-import com.witbus.demo.dto.UserDTO;
 import com.witbus.demo.services.AdminService;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +51,15 @@ public class AdminController {
     public Response<List<SeatDTO>> seat() {
         List<SeatDTO> seatDTOList = adminService.listSeat();
         return new Response<>(true, seatDTOList, "Succsess full!");
+    }
+    @GetMapping(value = "/listOffer")
+    public Response<List<OfferDTO>> offer() {
+        List<OfferDTO> offerDTOList = adminService.listOffer();
+        return new Response<>(true, offerDTOList, "Succsess full!");
+    }
+    @PostMapping(value = "/offer-Process")
+    public Response<OfferDTO> addOffer(@RequestBody OfferDTO offerDTO){
+        offerDTO = adminService.addOffer(offerDTO);
+        return new Response<>(true, offerDTO, "Successful full!");
     }
 }

@@ -17,7 +17,7 @@ public class Booking implements Serializable {
     private Boolean pay;
 
     @Column(name = "booking_number")
-    private Integer number ;
+    private Integer number;
 
     @Column(name = "booking_date")
     @Temporal(TemporalType.DATE)
@@ -114,6 +114,7 @@ public class Booking implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
     public Integer getNumber() {
         return number;
     }

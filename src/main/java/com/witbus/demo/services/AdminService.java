@@ -1,18 +1,11 @@
 package com.witbus.demo.services;
 
-import com.witbus.demo.dto.BusDTO;
-import com.witbus.demo.dto.BusOwnerDTO;
-import com.witbus.demo.dto.SeatDTO;
-import com.witbus.demo.dto.UserDTO;
+import com.witbus.demo.dto.*;
 
 import java.util.List;
 
 public interface AdminService {
     UserDTO login(UserDTO userDTO);
-
-
-
-
 
     List<BusDTO> listBus();
 
@@ -22,7 +15,9 @@ public interface AdminService {
 
     BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO);
 
-    BusOwnerDTO delete(Long id);
-
     BusDTO addBus(BusDTO busDTO);
+
+    List<OfferDTO> listOffer();
+
+    OfferDTO addOffer(OfferDTO offerDTO);
 }

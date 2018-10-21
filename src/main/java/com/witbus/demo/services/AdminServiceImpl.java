@@ -1,14 +1,8 @@
 package com.witbus.demo.services;
 
-import com.witbus.demo.dao.models.Bus;
-import com.witbus.demo.dao.models.BusOwner;
-import com.witbus.demo.dao.models.Seat;
-import com.witbus.demo.dao.models.User;
+import com.witbus.demo.dao.models.*;
 import com.witbus.demo.dao.repository.*;
-import com.witbus.demo.dto.BusDTO;
-import com.witbus.demo.dto.BusOwnerDTO;
-import com.witbus.demo.dto.SeatDTO;
-import com.witbus.demo.dto.UserDTO;
+import com.witbus.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,32 +15,35 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
     private BusRepository busRepository;
-    private BusOwnerRepository bus_ownerRepository;
+    private BusOwnerRepository busownerRepository;
     private SeatRepository seatRepository;
+    private OfferRepository offerRepository;
     private UserRepository userRepository;
     private BookingRepository bookingRepository;
 
-    public AdminServiceImpl(BusOwnerRepository bus_ownerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository ){
+    public AdminServiceImpl(BusOwnerRepository busownerRepository,OfferRepository offerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         this.busRepository = busRepository;
-        this.bus_ownerRepository = bus_ownerRepository;
+        this.busownerRepository = busownerRepository;
         this.seatRepository = seatRepository;
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
+        this.offerRepository = offerRepository;
     }
+
     @Override
     public UserDTO login(UserDTO userDTO) {
-            User user = adminRepository.findByUserNameAndPassword(userDTO.getName(),userDTO.getPassword(),userDTO.getRole());
-            if (user != null){
-                userDTO.setId(user.getId());
-            }
-            return userDTO;
+        User user = adminRepository.findByUserNameAndPassword(userDTO.getName(), userDTO.getPassword(), userDTO.getRole());
+        if (user != null) {
+            userDTO.setId(user.getId());
+        }
+        return userDTO;
 
     }
 
     @Override
     public List<BusOwnerDTO> listBusOwner() {
         List<BusOwnerDTO> busOwnerDTOS = new ArrayList<>();
-        List<BusOwner> busOwners = bus_ownerRepository.findAll();
+        List<BusOwner> busOwners = busownerRepository.findAll();
         for (BusOwner busOwner : busOwners) {
             BusOwnerDTO busOwnerDTO = new BusOwnerDTO();
             busOwnerDTO.setId(busOwner.getId());//ckeck bus này
@@ -56,12 +53,6 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return busOwnerDTOS;
-    }
-
-    @Override
-    public BusOwnerDTO delete(Long id) {
-        //bus_ownerRepository.delete(id);
-        return null;
     }
 
     @Override
@@ -85,35 +76,30 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public BusDTO addBus(BusDTO busDTO) {
         Bus bus = new Bus();
-        bus.setName(busDTO.getName());
         bus.setPlate(busDTO.getPlate());
+        bus.setName(busDTO.getName());
         bus.setOrigin(busDTO.getOrigin());
         bus.setDestination(busDTO.getDestination());
         bus.setStartTime(busDTO.getStartTime());
         bus.setEndTime(busDTO.getEndTime());
         bus.setDistanceTime(busDTO.getDistanceTime());
-        bus.setPriceDefault(busDTO.getPriceDefault());
         bus.setDate(busDTO.getDate());
-        Optional<BusOwner> busOwnerOptional = bus_ownerRepository.findById(busDTO.getBusOwner().getId());
-        BusOwner busOwner;
-        if (busOwnerOptional.isPresent())
-        {
-            BusOwner editUser = busOwnerOptional.get();
-            busOwner = bus_ownerRepository.save(editUser);
+        bus.setPriceDefault(busDTO.getPriceDefault());
+        Optional<BusOwner> busOwnerOptional = busownerRepository.findById(busDTO.getBusOwner().getId());
+        if (busOwnerOptional.isPresent()) {
+            bus.setBusOwner(busOwnerOptional.get());
+            busRepository.save(bus);
         }
-        else {
-            return null;
-        }
-        bus.setBusOwner(busOwner);
-        busRepository.save(bus);
+
         return null;
+
     }
 
     @Override
     public List<SeatDTO> listSeat() {
         List<SeatDTO> seatDTOS = new ArrayList<>();
         List<Seat> seats = seatRepository.findAll();
-        for (Seat seat: seats){
+        for (Seat seat : seats) {
             SeatDTO seatDTO = new SeatDTO();
             seatDTO.setId(seat.getId());
             seatDTO.setName(seat.getName());
@@ -130,7 +116,35 @@ public class AdminServiceImpl implements AdminService {
     public BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO) {
         BusOwner busOwner = new BusOwner();
         busOwner.setName(busOwnerDTO.getName());
-        bus_ownerRepository.save(busOwner);
+        busownerRepository.save(busOwner);
+        return null;
+    }
+
+    @Override
+    public List<OfferDTO> listOffer() {
+        List<OfferDTO> offerDTOS = new ArrayList<>();
+        List<Offer> offers = offerRepository.findAll();
+        for (Offer offer : offers){
+            OfferDTO offerDTO = new OfferDTO();
+            offerDTO.setId(offer.getId());
+            offerDTO.setName(offer.getName());
+            offerDTO.setCode(offer.getCode());
+            offerDTO.setInfo(offer.getInfo());
+            offerDTO.setPrice(offer.getPrice());
+
+            offerDTOS.add(offerDTO);
+        }
+        return offerDTOS;
+    }
+
+    @Override
+    public OfferDTO addOffer(OfferDTO offerDTO) {
+        Offer offer = new Offer();
+        offer.setName(offerDTO.getName());
+        offer.setCode(offerDTO.getCode());
+        offer.setInfo(offerDTO.getInfo());
+        offer.setPrice(offerDTO.getPrice());
+        offerRepository.save(offer);
         return null;
     }
 }
