@@ -57,7 +57,7 @@ public class AdminController {
         List<OfferDTO> offerDTOList = adminService.listOffer();
         return new Response<>(true, offerDTOList, "Succsess full!");
     }
-    @PostMapping(value = "/offer-Process")
+    @PostMapping(value = "/offerProcess")
     public Response<OfferDTO> addOffer(@RequestBody OfferDTO offerDTO){
         offerDTO = adminService.addOffer(offerDTO);
         return new Response<>(true, offerDTO, "Successful full!");
