@@ -39,4 +39,5 @@ public class BusOwnerDTO {
     public void setBus(List<BusDTO> bus) {
         this.bus = bus;
     }
+
 }

@@ -1,7 +1,7 @@
 package com.witbus.demo.controllers;
 
 import com.witbus.demo.dto.OfferDTO;
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.services.OfferService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

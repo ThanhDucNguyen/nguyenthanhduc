@@ -2,7 +2,7 @@ package com.witbus.demo.controllers;
 
 import com.witbus.demo.dao.models.User;
 import com.witbus.demo.dao.repository.UserRepository;
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.dto.UserDTO;
 import com.witbus.demo.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

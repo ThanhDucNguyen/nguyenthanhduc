@@ -1,12 +1,10 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dao.models.Offer;
 import com.witbus.demo.dto.*;
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.services.AdminService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,8 +40,8 @@ public class AdminController {
         List<BusDTO> busSeatDTOList = adminService.listBus();
         return new Response<>(true, busSeatDTOList, "Succsess full!");
     }
-    @PostMapping(value = "/bus-Process")
-    public Response<BusDTO> addBuss(@RequestBody BusDTO busDTO){
+    @PostMapping(value = "/busProcess")
+    public Response<BusDTO> addBus(@RequestBody BusDTO busDTO){
         busDTO = adminService.addBus(busDTO);
         return new Response<>(true, busDTO, "Successful full!");
     }
@@ -61,5 +59,10 @@ public class AdminController {
     public Response<OfferDTO> addOffer(@RequestBody OfferDTO offerDTO){
         offerDTO = adminService.addOffer(offerDTO);
         return new Response<>(true, offerDTO, "Successful full!");
+    }
+    @DeleteMapping(value = "/busOwner/{id}/delete")
+    public Response<BusOwnerDTO> removeBusOwner(@PathVariable(value = "id") Long id){
+        BusOwnerDTO busOwnerDTO = adminService.removeBusOwner(id);
+        return new Response<>(true,busOwnerDTO,"Successful remove");
     }
 }

@@ -1,8 +1,7 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dto.BusDTO;
 import com.witbus.demo.dto.SeatDTO;
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.services.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

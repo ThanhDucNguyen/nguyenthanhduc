@@ -1,6 +1,6 @@
 package com.witbus.demo.controllers;
 
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.dto.BookingDTO;
 import com.witbus.demo.services.BookingService;
 import org.springframework.web.bind.annotation.*;

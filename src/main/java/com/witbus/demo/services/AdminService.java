@@ -20,4 +20,6 @@ public interface AdminService {
     List<OfferDTO> listOffer();
 
     OfferDTO addOffer(OfferDTO offerDTO);
+
+    BusOwnerDTO removeBusOwner(Long id);
 }

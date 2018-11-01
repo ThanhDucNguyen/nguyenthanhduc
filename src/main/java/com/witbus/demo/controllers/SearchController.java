@@ -1,7 +1,7 @@
 package com.witbus.demo.controllers;
 
 import com.witbus.demo.dto.BusSeatDTO;
-import com.witbus.demo.dto.Utils.Response;
+import com.witbus.demo.dto.Response;
 import com.witbus.demo.dto.TourDTO;
 import com.witbus.demo.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;

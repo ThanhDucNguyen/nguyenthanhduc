@@ -75,6 +75,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public BusDTO addBus(BusDTO busDTO) {
+
         Bus bus = new Bus();
         bus.setPlate(busDTO.getPlate());
         bus.setName(busDTO.getName());
@@ -92,8 +93,8 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return null;
-
     }
+
 
     @Override
     public List<SeatDTO> listSeat() {
@@ -145,6 +146,12 @@ public class AdminServiceImpl implements AdminService {
         offer.setInfo(offerDTO.getInfo());
         offer.setPrice(offerDTO.getPrice());
         offerRepository.save(offer);
+        return null;
+    }
+
+    @Override
+    public BusOwnerDTO removeBusOwner(Long id) {
+        busownerRepository.deleteById(id);
         return null;
     }
 }

@@ -11,6 +11,10 @@ public class BusDTO {
     private String startTime;
     private String endTime;
     private String date;
+    private Integer distanceTime;
+    private Integer priceDefault;
+    private BusOwnerDTO busOwner;
+    private List<SeatDTO> seats;
 
     @Override
     public String toString() {
@@ -29,19 +33,6 @@ public class BusDTO {
                 ", seats=" + seats +
                 '}';
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    private Integer distanceTime;
-    private Integer priceDefault;
-    private BusOwnerDTO busOwner;
-    private List<SeatDTO> seats;
 
     public Long getId() {
         return id;
@@ -97,6 +88,14 @@ public class BusDTO {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getDistanceTime() {
