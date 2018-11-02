@@ -1,21 +1,24 @@
-package com.witbus.demo.dto.Utils;
+package com.witbus.demo.dto.Reponse;
 
-public class Response<T>{
-    private Boolean success;
+public class Response <T> {
+    private boolean success = true;
     private T data;
     private String message;
 
-    public Response(Boolean success, T data, String message) {
+    public Response() {
+    }
+
+    public Response(boolean success, T data, String message) {
         this.success = success;
         this.data = data;
         this.message = message;
     }
 
-    public Boolean getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 

@@ -1,7 +1,7 @@
 package com.witbus.demo.controllers;
 
 import com.witbus.demo.dto.*;
-import com.witbus.demo.dto.Response;
+import com.witbus.demo.dto.Reponse.Response;
 import com.witbus.demo.services.AdminService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,7 @@ public class AdminController {
             return new Response<>(false, null, " User not exits");
         }
     }
+
     @GetMapping(value = "/busOwner")
     public Response<List<BusOwnerDTO>> busOwner() {
         List<BusOwnerDTO> busOwnerDTOList = adminService.listBusOwner();
@@ -35,6 +36,9 @@ public class AdminController {
         busOwnerDTO = adminService.addBusOwner(busOwnerDTO);
         return new Response<>(true, busOwnerDTO, "Successful full!");
     }
+
+
+
     @GetMapping(value = "/bus")
     public Response<List<BusDTO>> bus() {
         List<BusDTO> busSeatDTOList = adminService.listBus();
@@ -45,11 +49,20 @@ public class AdminController {
         busDTO = adminService.addBus(busDTO);
         return new Response<>(true, busDTO, "Successful full!");
     }
+
+
+
     @GetMapping(value = "/seat")
     public Response<List<SeatDTO>> seat() {
         List<SeatDTO> seatDTOList = adminService.listSeat();
         return new Response<>(true, seatDTOList, "Succsess full!");
     }
+    @PostMapping(value = "/seatProcess")
+    public Response<SeatDTO> addSeat(@RequestBody SeatDTO seatDTO){
+        seatDTO = adminService.addSeat(seatDTO);
+        return new Response<>(true, seatDTO, "Successful full!");
+    }
+
     @GetMapping(value = "/listOffer")
     public Response<List<OfferDTO>> offer() {
         List<OfferDTO> offerDTOList = adminService.listOffer();
@@ -64,5 +77,12 @@ public class AdminController {
     public Response<BusOwnerDTO> removeBusOwner(@PathVariable(value = "id") Long id){
         BusOwnerDTO busOwnerDTO = adminService.removeBusOwner(id);
         return new Response<>(true,busOwnerDTO,"Successful remove");
+    }
+
+
+    @GetMapping(value = "/listBooking")
+    public Response<List<BookingDTO>> booking() {
+        List<BookingDTO> bookingDTOList = adminService.listBooking();
+        return new Response<>(true, bookingDTOList, "Succsess full!");
     }
 }

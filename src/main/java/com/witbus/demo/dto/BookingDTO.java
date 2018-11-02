@@ -1,5 +1,8 @@
 package com.witbus.demo.dto;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.Random;
 
 public class BookingDTO {
@@ -9,6 +12,8 @@ public class BookingDTO {
     private Integer price;
     private String email;
     private String phone;
+    @Temporal(TemporalType.DATE)
+    private Date date = new Date();
     private String name;
     private SeatDTO seat;
     private UserDTO user;
@@ -19,7 +24,6 @@ public class BookingDTO {
         Random rd = new Random();
         number = min + rd.nextInt(max - min);
     }
-
     @Override
     public String toString() {
         return "BookingDTO{" +
@@ -29,10 +33,19 @@ public class BookingDTO {
                 ", price=" + price +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", date=" + date +
                 ", name='" + name + '\'' +
                 ", seat=" + seat +
                 ", user=" + user +
                 '}';
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getNumber() {

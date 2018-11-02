@@ -20,8 +20,7 @@ public class Booking implements Serializable {
     private Integer number;
 
     @Column(name = "booking_date")
-    @Temporal(TemporalType.DATE)
-    private Date date = new Date();
+    private Date date;
 
     @Column(name = "booking_price")
     private Integer price;

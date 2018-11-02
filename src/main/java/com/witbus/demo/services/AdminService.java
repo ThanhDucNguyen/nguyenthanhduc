@@ -22,4 +22,8 @@ public interface AdminService {
     OfferDTO addOffer(OfferDTO offerDTO);
 
     BusOwnerDTO removeBusOwner(Long id);
+
+    SeatDTO addSeat(SeatDTO seatDTO);
+
+    List<BookingDTO> listBooking();
 }

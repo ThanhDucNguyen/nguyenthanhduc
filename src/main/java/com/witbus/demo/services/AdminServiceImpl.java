@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
     private UserRepository userRepository;
     private BookingRepository bookingRepository;
 
-    public AdminServiceImpl(BusOwnerRepository busownerRepository,OfferRepository offerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository) {
+    public AdminServiceImpl(BusOwnerRepository busownerRepository, OfferRepository offerRepository, BusRepository busRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository) {
         this.busRepository = busRepository;
         this.busownerRepository = busownerRepository;
         this.seatRepository = seatRepository;
@@ -73,6 +73,69 @@ public class AdminServiceImpl implements AdminService {
         return bookingDTOS;
     }
 
+
+    @Override
+    public List<SeatDTO> listSeat() {
+        List<SeatDTO> seatDTOS = new ArrayList<>();
+        List<Seat> seats = seatRepository.findAll();
+        for (Seat seat : seats) {
+            SeatDTO seatDTO = new SeatDTO();
+            seatDTO.setId(seat.getId());
+            seatDTO.setName(seat.getName());
+            seatDTO.setStatus(seat.getStatus());
+            seatDTO.setSeatType(seat.getSeatType());
+            seatDTO.setPrice(seat.getPrice());
+
+            seatDTOS.add(seatDTO);
+        }
+        return seatDTOS;
+    }
+
+    @Override
+    public List<BookingDTO> listBooking() {
+        List<BookingDTO> bookingDTOS = new ArrayList<>();
+        List<Booking> bookings = bookingRepository.findAll();
+        for (Booking booking : bookings){
+            BookingDTO bookingDTO = new BookingDTO();
+            bookingDTO.setId(booking.getId());
+            bookingDTO.setName(booking.getName());
+            bookingDTO.setEmail(booking.getEmail());
+            bookingDTO.setPhone(booking.getPhone());
+            bookingDTO.setPrice(booking.getPrice());
+            bookingDTO.setPay(booking.getPay());
+            bookingDTO.setNumber(booking.getNumber());
+
+            bookingDTOS.add(bookingDTO);
+        }
+        return bookingDTOS;
+    }
+
+    @Override
+    public List<OfferDTO> listOffer() {
+        List<OfferDTO> offerDTOS = new ArrayList<>();
+        List<Offer> offers = offerRepository.findAll();
+        for (Offer offer : offers) {
+            OfferDTO offerDTO = new OfferDTO();
+            offerDTO.setId(offer.getId());
+            offerDTO.setName(offer.getName());
+            offerDTO.setCode(offer.getCode());
+            offerDTO.setInfo(offer.getInfo());
+            offerDTO.setPrice(offer.getPrice());
+
+            offerDTOS.add(offerDTO);
+        }
+        return offerDTOS;
+    }
+    //===========================================================ADD===========================================================//
+
+    @Override
+    public BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO) {
+        BusOwner busOwner = new BusOwner();
+        busOwner.setName(busOwnerDTO.getName());
+        busownerRepository.save(busOwner);
+        return null;
+    }
+
     @Override
     public BusDTO addBus(BusDTO busDTO) {
 
@@ -95,47 +158,20 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
-
     @Override
-    public List<SeatDTO> listSeat() {
-        List<SeatDTO> seatDTOS = new ArrayList<>();
-        List<Seat> seats = seatRepository.findAll();
-        for (Seat seat : seats) {
-            SeatDTO seatDTO = new SeatDTO();
-            seatDTO.setId(seat.getId());
-            seatDTO.setName(seat.getName());
-            seatDTO.setStatus(seat.getStatus());
-            seatDTO.setSeatType(seat.getSeatType());
-            seatDTO.setPrice(seat.getPrice());
-
-            seatDTOS.add(seatDTO);
+    public SeatDTO addSeat(SeatDTO seatDTO) {
+        Seat seat = new Seat();
+        seat.setName(seatDTO.getName());
+        seat.setStatus(seatDTO.getStatus());
+        seat.setPrice(seatDTO.getPrice());
+        seat.setSeatType(seatDTO.getSeatType());
+        Optional<Bus> busOptional = busRepository.findById(seatDTO.getBus().getId());
+        if (busOptional.isPresent()) {
+            seat.setBus(busOptional.get());
+            seatRepository.save(seat);
         }
-        return seatDTOS;
-    }
 
-    @Override
-    public BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO) {
-        BusOwner busOwner = new BusOwner();
-        busOwner.setName(busOwnerDTO.getName());
-        busownerRepository.save(busOwner);
         return null;
-    }
-
-    @Override
-    public List<OfferDTO> listOffer() {
-        List<OfferDTO> offerDTOS = new ArrayList<>();
-        List<Offer> offers = offerRepository.findAll();
-        for (Offer offer : offers){
-            OfferDTO offerDTO = new OfferDTO();
-            offerDTO.setId(offer.getId());
-            offerDTO.setName(offer.getName());
-            offerDTO.setCode(offer.getCode());
-            offerDTO.setInfo(offer.getInfo());
-            offerDTO.setPrice(offer.getPrice());
-
-            offerDTOS.add(offerDTO);
-        }
-        return offerDTOS;
     }
 
     @Override
