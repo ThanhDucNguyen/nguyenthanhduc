@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from users where user_name=?1 and password=?2 and role = 0", nativeQuery = true)
-    User findByAdmin(String userName, String password, Integer role);
+    User findByAdmin(String userName, String password);
 }
