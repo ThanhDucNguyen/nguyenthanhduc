@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public UserDTO login(UserDTO userDTO) {
-        User user = adminRepository.findByUserNameAndPassword(userDTO.getName(), userDTO.getPassword(), userDTO.getRole());
+        User user = adminRepository.findByAdmin(userDTO.getName(), userDTO.getPassword(), userDTO.getRole());
         if (user != null) {
             userDTO.setId(user.getId());
         }

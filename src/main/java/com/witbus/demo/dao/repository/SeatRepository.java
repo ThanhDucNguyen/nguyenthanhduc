@@ -13,4 +13,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
             " inner join seats as s on b.bus_id = s.bus_id and s.seat_status = false \n" +
             " WHERE b.bus_origin like %?1% AND s.seat_type like %?2%",nativeQuery = true)
     List<Seat> getSeatAvailable (String  busOrigin, String seatType);
+//    @Query(value = "SELECT * from seat where status='false' ",nativeQuery = true)
+//    Seat
 }

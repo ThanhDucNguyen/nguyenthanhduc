@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
         Seat seat;
         if (seatOptional.isPresent()) {
             Seat editSeat = seatOptional.get();
-            editSeat.setStatus(bookingDTO.getSeat().getStatus());
+            editSeat.setStatus(true);
             seat = seatRepository.save(editSeat);
         } else {
             return;
