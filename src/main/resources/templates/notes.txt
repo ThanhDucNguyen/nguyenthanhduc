@@ -1,0 +1,2 @@
+- endpoint add offer tạo ra code tự nhập là uppercase tại DTO
+- endpoint delete sử dụng cascade delete spring

@@ -12,8 +12,8 @@ public interface AdminService {
     List<BusOwnerDTO> listBusOwner();
     BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO);
     BusOwnerDTO removeBusOwner(Long id);
-    BusOwnerDTO updateBusOwner(Long id,BusOwnerDTO busOwnerDTO );
-    BusOwnerDTO detailBusOwner( Long id);
+    BusOwnerDTO updateBusOwner(BusOwnerDTO busOwnerDTO );
+    BusOwner detailBusOwner( Long id);
 
 
     //------------------------------Bus---------------------------------///

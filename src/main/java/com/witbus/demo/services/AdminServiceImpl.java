@@ -68,8 +68,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public BusOwnerDTO updateBusOwner(Long id, BusOwnerDTO busOwnerDTO) {
-        Optional<BusOwner> busOwnerOptional = busOwnerRepository.findById(id);
+    public BusOwnerDTO updateBusOwner( BusOwnerDTO busOwnerDTO) {
+        Optional<BusOwner> busOwnerOptional = busOwnerRepository.findById(busOwnerDTO.getId());
         if( busOwnerOptional.isPresent()){
             BusOwner busOwner =busOwnerOptional.get();
             busOwner.setName(busOwnerDTO.getName());
@@ -80,22 +80,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public BusOwnerDTO detailBusOwner( Long id) {
-        BusOwnerDTO busOwnerDTO = new BusOwnerDTO();
-        Optional<BusOwner> busOwnerOptional = busOwnerRepository.findById(id);
-        if( busOwnerOptional.isPresent()){
-            BusOwner busOwner =busOwnerOptional.get();
-            busOwnerDTO .setId(id);
-            busOwnerDTO.setName(busOwner.getName());
-
-
-        }
-        return  busOwnerDTO;
+    public BusOwner detailBusOwner( Long id) {
+        BusOwner busOwner = busOwnerRepository.findBusOwnerById(id);
+        return  busOwner;
 
 
     }
-
-
 
     //------------------------------------Bus--------------------------------------------//
     @Override
