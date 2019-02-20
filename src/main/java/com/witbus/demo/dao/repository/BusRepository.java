@@ -12,5 +12,6 @@ public interface BusRepository extends JpaRepository<Bus, Long> {
     @Query(value = "SELECT * FROM bus WHERE  bus_owner_id = ?1", nativeQuery = true)
     List<Bus> listById(Long id);
 
-
+    @Query(value = "select *from bus where bus_id =?1", nativeQuery = true)
+    Bus findBusById(Long id);
 }

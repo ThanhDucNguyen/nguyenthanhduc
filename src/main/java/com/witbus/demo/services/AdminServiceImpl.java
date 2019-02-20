@@ -144,8 +144,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public BusDTO updateBus(Long id, BusDTO busDTO) {
-        Optional<Bus> busOptional = busRepository.findById(id);
+    public BusDTO updateBus( BusDTO busDTO) {
+        Optional<Bus> busOptional = busRepository.findById(busDTO.getId());
 
         if (busOptional.isPresent()) {
             Bus bus = busOptional.get();
@@ -195,7 +195,11 @@ public class AdminServiceImpl implements AdminService {
         return busDTOS;
     }
 
-
+    @Override
+    public Bus detailBus(Long id) {
+        Bus bus = busRepository.findBusById(id);
+        return bus;
+    }
 
     //----------------------------------Seat-------------------------------------------///
     @Override
@@ -257,10 +261,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public SeatDTO updateSeat(Long id) {
-        Optional<Seat> seatOptional = seatRepository.findById(id);
+    public SeatDTO updateSeat(SeatDTO seatDTO) {
+        Optional<Seat> seatOptional = seatRepository.findById(seatDTO.getId());
         if (seatOptional.isPresent()) {
-            SeatDTO seatDTO = new SeatDTO() ;
             Seat seat = seatOptional.get();
             seat.setName(seatDTO.getName());
             seat.setStatus(seatDTO.getStatus());
@@ -313,6 +316,12 @@ public class AdminServiceImpl implements AdminService {
             seatDTOS.add(seatDTO);
         }
         return seatDTOS;
+    }
+
+    @Override
+    public Seat detailSeat(Long id) {
+        Seat seat = seatRepository.findSeatById(id);
+        return seat;
     }
 
     //---------------------------------------User---------------------------------------------------//

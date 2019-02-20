@@ -1,6 +1,8 @@
 package com.witbus.demo.services;
 
+import com.witbus.demo.dao.models.Bus;
 import com.witbus.demo.dao.models.BusOwner;
+import com.witbus.demo.dao.models.Seat;
 import com.witbus.demo.dto.*;
 
 import java.util.List;
@@ -20,14 +22,16 @@ public interface AdminService {
     List<BusDTO> listBus();
     BusDTO addBus(BusDTO busDTO);
     BusDTO removeBus(Long id);
-    BusDTO updateBus(Long id, BusDTO busDTO);
+    BusDTO updateBus( BusDTO busDTO);
+    Bus detailBus(Long id);
     List<BusDTO> busListId(Long id);
 
     //------------------------------Seat---------------------------------///
     List<SeatDTO> listSeat();
     SeatDTO addSeat(SeatDTO seatDTO);
     SeatDTO removeSeat(Long id);
-    SeatDTO updateSeat(Long id);
+    SeatDTO updateSeat(SeatDTO seatDTO);
+    Seat detailSeat(Long id);
     List<SeatDTO> seatListId(Long id);
 
     //------------------------------User---------------------------------///
