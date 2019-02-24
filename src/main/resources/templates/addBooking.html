@@ -151,48 +151,43 @@
                     <li class="list-group-item p-3">
                       <div class="row">
                         <div class="col">
-                          <form th:action="@{/busProcess}" method="post" role="form" th:object="${bus}">
+                          <form th:action="@{/bookingProcess}" method="post" role="form" th:object="${booking}">
                             <div class="form-group">
                               <label >Name</label>
-                              <input type="text" class="form-control" placeholder="Name">
+                              <input type="text" class="form-control" th:field="*{name}">
                             </div>
                             <div class="form-group">
-                              <label >Plate</label>
-                              <input type="text" class="form-control" placeholder="Plate">
+                              <label >Phone</label>
+                              <input type="text" class="form-control" th:field="*{phone}">
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="feFirstName">Start Time</label>
-                                <input type="text" class="form-control" id="feFirstName" placeholder="Start Time" > </div>
+                                <label >Email</label>
+                                <input type="text" class="form-control" th:field="*{email}"></div>
                               <div class="form-group col-md-6">
-                                <label for="feLastName">End Time</label>
-                                <input type="text" class="form-control" id="feLastName" placeholder="End Time" > </div>
+                                <label >Price</label>
+                                <input type="text" class="form-control" th:field="*{price}"></div>
                             </div>
                             <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="feEmailAddress">Origin</label>
-                                <input type="text" class="form-control" id="feEmailAddress" placeholder="Origin" > </div>
-                              <div class="form-group col-md-6">
-                                <label for="fePassword">Destination</label>
-                                <input type="text" class="form-control" id="fePassword" placeholder="Destination"> </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="feInputCity">Date</label>
-                                <input type="date" class="form-control" id="feInputCity"> </div>
-                              <div class="form-group col-md-2">
-                                <label for="inputZip">Price</label>
-                                <input type="text" class="form-control" id="inputZip"> </div>
                               <div class="form-group col-md-4">
-                                <label for="feInputState">Bus Owner</label>
-                                <select id="feInputState" class="form-control">
-                                  <option>Viet Tan</option>
-                                  <option>Minh Quoc</option>
-                                  <option>...</option>
+                                <label>Pay</label>
+                                <select  class="form-control" th:field="*{pay}">
+                                  <option  th:value="'1'" th:text="Thanh-toán"></option>
+                                  <option  th:value="'0'" th:text="Chưa-thanh-toán"></option>
+                                </select></div>
+                              <div class="form-group col-md-4">
+                                <label for="feInputState">User</label>
+                                <select id="feInputState" class="form-control" th:field="*{user.id}">
+                                  <option th:each="list:${user}" th:value="${list.id}" th:text="${list.name}"></option>
+                                </select>
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="feInputState">Seat</label>
+                                <select class="form-control" th:field="*{seat.id}">
+                                  <option th:each="list:${seats}" th:value="${list.id}" th:text="${list.name}"></option>
                                 </select>
                               </div>
                             </div>
-                            <button type="submit" class="btn btn-accent">ADD BUS</button>
                           </form>
                         </div>
                       </div>

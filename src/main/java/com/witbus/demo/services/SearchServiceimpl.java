@@ -30,58 +30,78 @@ public class SearchServiceimpl implements SearchService {
         this.bookingRepository = bookingRepository;
     }
 
+//    @Override
+//    public List<BusSeatDTO> searchTour(TourDTO tourDTO) {
+//        String a = tourDTO.getLocationOrigin();
+//        String b = tourDTO.getTicketType();
+//        List<Seat> seats = seatRepository.getSeatAvailable(tourDTO.getLocationOrigin(),tourDTO.getTicketType());
+//
+//        //List<Seat> seats = seatRepository.getSeatAvailable(tourDTO.getLocationOrigin(),tourDTO.getTicketType());
+//        List<BusSeatDTO> result = new ArrayList<>();
+//        for (Seat seat :seats) {
+//
+//            //Kiem tra thu bus da ton tai chua
+//            int index = -1 ;
+//            for (int i = 0 ; i<result.size();i++) {
+//                if(result.get(i).getBus().getId().equals(seat.getBus().getId())){
+//                    index = i;
+//
+//                }
+//                break;
+//            }
+//
+//            //If index == -1 => add new ,index!=-1 => update (thêm xe vào)
+//
+//            if (index != -1 ) {
+//                result.get(index).getSeats().add(seat.getId());
+//
+//                // }
+//            }
+//            else {
+//                //if(seat.getBus().getOrigin().equals(tourDTO.getLocationOrigin())){
+//                BusSeatDTO busSeatDTO = new BusSeatDTO();
+//                BusDTO busDTO = new BusDTO();
+//                busDTO.setId(seat.getBus().getId());//ckeck bus này
+//                busDTO.setPlate(seat.getBus().getPlate());
+//                busDTO.setName(seat.getBus().getName());
+//                busDTO.setOrigin(seat.getBus().getOrigin());
+//                busDTO.setDestination(seat.getBus().getDestination());
+//                busDTO.setStartTime(seat.getBus().getStartTime());
+//                busDTO.setEndTime(seat.getBus().getEndTime());
+//                busDTO.setDistanceTime(seat.getBus().getDistanceTime());
+//                busDTO.setPriceDefault(seat.getBus().getPriceDefault());
+//
+//                busSeatDTO.setBus(busDTO);
+//
+//
+//                List<Long> listSeat = new ArrayList<>();
+//                listSeat.add(seat.getId());
+//                busSeatDTO.setSeats(listSeat);
+//                result.add(busSeatDTO);
+//
+//            }
+//
+//
+//        }
+//        return result;
+//    }
+
     @Override
-    public List<BusSeatDTO> searchTour(TourDTO tourDTO) {
-        String a = tourDTO.getLocationOrigin();
-        String b = tourDTO.getTicketType();
-        List<Seat> seats = seatRepository.getSeatAvailable(tourDTO.getLocationOrigin(),tourDTO.getTicketType());
+    public List<BusDTO> searchTour(BusDTO busDTO) {
+        List<Bus> bus = busRepository.getBus(busDTO.getOrigin(),busDTO.getDestination(),busDTO.getDate());
+        List<BusDTO> result = new ArrayList<>();
+        for (Bus bus1 :bus) {
+            busDTO.setId(bus1.getId());//ckeck bus này
+            busDTO.setPlate(bus1.getPlate());
+            busDTO.setName(bus1.getName());
+            busDTO.setOrigin(bus1.getOrigin());
+            busDTO.setDestination(bus1.getDestination());
+            busDTO.setStartTime(bus1.getStartTime());
+            busDTO.setEndTime(bus1.getEndTime());
+            busDTO.setDistanceTime(bus1.getDistanceTime());
+            busDTO.setPriceDefault(bus1.getPriceDefault());
 
-        //List<Seat> seats = seatRepository.getSeatAvailable(tourDTO.getLocationOrigin(),tourDTO.getTicketType());
-        List<BusSeatDTO> result = new ArrayList<>();
-        for (Seat seat :seats) {
-
-            //Kiem tra thu bus da ton tai chua
-            int index = -1 ;
-            for (int i = 0 ; i<result.size();i++) {
-                if(result.get(i).getBus().getId().equals(seat.getBus().getId())){
-                    index = i;
-
-                }
-                break;
-            }
-
-            //If index == -1 => add new ,index!=-1 => update (thêm xe vào)
-
-            if (index != -1 ) {
-                result.get(index).getSeats().add(seat.getId());
-
-                // }
-            }
-            else {
-                //if(seat.getBus().getOrigin().equals(tourDTO.getLocationOrigin())){
-                BusSeatDTO busSeatDTO = new BusSeatDTO();
-                BusDTO busDTO = new BusDTO();
-                busDTO.setId(seat.getBus().getId());//ckeck bus này
-                busDTO.setPlate(seat.getBus().getPlate());
-                busDTO.setName(seat.getBus().getName());
-                busDTO.setOrigin(seat.getBus().getOrigin());
-                busDTO.setDestination(seat.getBus().getDestination());
-                busDTO.setStartTime(seat.getBus().getStartTime());
-                busDTO.setEndTime(seat.getBus().getEndTime());
-                busDTO.setDistanceTime(seat.getBus().getDistanceTime());
-                busDTO.setPriceDefault(seat.getBus().getPriceDefault());
-
-                busSeatDTO.setBus(busDTO);
-
-
-                List<Long> listSeat = new ArrayList<>();
-                listSeat.add(seat.getId());
-                busSeatDTO.setSeats(listSeat);
-                result.add(busSeatDTO);
-
-            }
-
-
+            result.add(busDTO);
         }
         return result;
     }
@@ -92,15 +112,8 @@ public class SearchServiceimpl implements SearchService {
         List<Bus> bookings = busRepository.findAll();
         for (Bus bus : bookings) {
             BusDTO busDTO = new BusDTO();
-            busDTO.setId(bus.getId());//ckeck bus này
-            busDTO.setPlate(bus.getPlate());
-            busDTO.setName(bus.getName());
             busDTO.setOrigin(bus.getOrigin());
             busDTO.setDestination(bus.getDestination());
-            busDTO.setStartTime(bus.getStartTime());
-            busDTO.setEndTime(bus.getEndTime());
-            busDTO.setDistanceTime(bus.getDistanceTime());
-            busDTO.setPriceDefault(bus.getPriceDefault());
 
             bookingDTOS.add(busDTO);
         }

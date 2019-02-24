@@ -168,32 +168,6 @@ public class AdminServiceImpl implements AdminService {
         }
         return  null;
     }
-    @Override
-    public List<BusDTO> busListId(Long id) {
-        List<BusDTO> busDTOS = new ArrayList<>();
-        List<Bus> buses = busRepository.listById(id);
-        for (Bus bus : buses) {
-            BusDTO busDTO = new BusDTO();
-            busDTO.setId(bus.getId());
-            busDTO.setPlate(bus.getPlate());
-            busDTO.setName(bus.getName());
-            busDTO.setOrigin(bus.getOrigin());
-            busDTO.setDestination(bus.getDestination());
-            busDTO.setStartTime(bus.getStartTime());
-            busDTO.setEndTime(bus.getEndTime());
-            busDTO.setDistanceTime(bus.getDistanceTime());
-            busDTO.setDate(bus.getDate());
-            busDTO.setPriceDefault(bus.getPriceDefault());
-
-            BusOwnerDTO busOwnerDTO = new BusOwnerDTO();
-            busOwnerDTO.setId(bus.getBusOwner().getId());
-            busOwnerDTO.setName(bus.getBusOwner().getName());
-            busDTO.setBusOwner(busOwnerDTO);
-
-            busDTOS.add(busDTO);
-        }
-        return busDTOS;
-    }
 
     @Override
     public Bus detailBus(Long id) {
@@ -226,12 +200,7 @@ public class AdminServiceImpl implements AdminService {
             busDTO.setDistanceTime(seat.getBus().getDistanceTime());
             busDTO.setDate(seat.getBus().getDate());
             busDTO.setPriceDefault(seat.getBus().getPriceDefault());
-
-
-
             seatDTO.setBus(busDTO);
-
-
 
             seatDTOS.add(seatDTO);
         }
@@ -283,42 +252,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<SeatDTO> seatListId(Long id) {
-        List<SeatDTO> seatDTOS = new ArrayList<>();
-        List<Seat> seats = seatRepository.listByBusId(id);
-        for (Seat seat: seats){
-            SeatDTO seatDTO = new SeatDTO();
-            seatDTO.setId(seat.getId());
-            seatDTO.setName(seat.getName());
-            seatDTO.setStatus(seat.getStatus());
-            seatDTO.setSeatType(seat.getSeatType());
-            seatDTO.setPrice(seat.getPrice());
-
-
-            BusDTO busDTO = new BusDTO();
-            busDTO.setId(seat.getBus().getId());
-            busDTO.setPlate(seat.getBus().getPlate());
-            busDTO.setName(seat.getBus().getName());
-            busDTO.setOrigin(seat.getBus().getOrigin());
-            busDTO.setDestination(seat.getBus().getDestination());
-            busDTO.setStartTime(seat.getBus().getStartTime());
-            busDTO.setEndTime(seat.getBus().getEndTime());
-            busDTO.setDistanceTime(seat.getBus().getDistanceTime());
-            busDTO.setDate(seat.getBus().getDate());
-            busDTO.setPriceDefault(seat.getBus().getPriceDefault());
-
-
-
-            seatDTO.setBus(busDTO);
-
-
-
-            seatDTOS.add(seatDTO);
-        }
-        return seatDTOS;
-    }
-
-    @Override
     public Seat detailSeat(Long id) {
         Seat seat = seatRepository.findSeatById(id);
         return seat;
@@ -367,7 +300,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updateUser(UserDTO userDTO) {
+    public User detailUser(Long id) {
+        User user = userRepository.findByUser(id);
+        return user;
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
         Optional<User> userOptional = userRepository.findById(userDTO.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -378,6 +317,7 @@ public class AdminServiceImpl implements AdminService {
             user.setRole(userDTO.getRole());
             userRepository.save(user);
         }
+        return null;
     }
     //---------------------------------------Offer---------------------------------------------------//
 
@@ -416,26 +356,26 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public OfferDTO updateOffer(Long id) {
-        Optional<Offer> offerOptional = offerRepository.findById(id);
+    public Offer detailOffer(Long id) {
+        Offer offer = offerRepository.findByOffer(id);
+        return offer;
+    }
+
+    @Override
+    public OfferDTO updateOffer(OfferDTO offerDTO) {
+        Optional<Offer> offerOptional = offerRepository.findById(offerDTO.getId());
         if( offerOptional.isPresent()){
             Offer offer =offerOptional.get();
-            OfferDTO offerDTO = new OfferDTO();
             offer.setCode(offerDTO.getCode());
-
             offer.setInfo(offerDTO.getInfo());
-
             offer.setName(offerDTO.getName());
-
             offer.setPrice(offerDTO.getPrice());
-
 
             offerRepository.save(offer);
         }
         return  null;
     }
     //---------Booking -----------------------//
-
 
     @Override
     public List<BookingDTO> listBooking() {
@@ -467,8 +407,61 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public BookingDTO addBooking(BookingDTO bookingDTO) {
+        Booking booking = new Booking();
+        booking.setDate(bookingDTO.getDate());
+        booking.setEmail(bookingDTO.getEmail());
+        booking.setName(bookingDTO.getName());
+        booking.setNumber(bookingDTO.getNumber());
+        booking.setPay(bookingDTO.getPay());
+        booking.setPhone(bookingDTO.getPhone());
+        booking.setPrice(bookingDTO.getPrice());
+        Optional<Seat> seatOptional = seatRepository.findById(bookingDTO.getSeat().getId());
+        if (seatOptional.isPresent()) {
+            booking.setSeat(seatOptional.get());
+        }
+        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
+        if (userOptional.isPresent()) {
+            booking.setUser(userOptional.get());
+        }
+        bookingRepository.save(booking);
+        return null;
+    }
+
+    @Override
     public BookingDTO removeBooking(Long id) {
         bookingRepository.deleteById(id);
+        return null;
+    }
+
+    @Override
+    public Booking detailBooking(Long id) {
+        Booking booking = bookingRepository.findbyBooking(id);
+        return booking;
+    }
+
+    @Override
+    public BookingDTO updateBooking(BookingDTO bookingDTO) {
+        Optional<Booking> bookingOptional = bookingRepository.findById(bookingDTO.getId());
+        if (bookingOptional.isPresent()){
+            Booking booking = bookingOptional.get();
+            booking.setDate(bookingDTO.getDate());
+            booking.setEmail(bookingDTO.getEmail());
+            booking.setName(bookingDTO.getName());
+            booking.setNumber(bookingDTO.getNumber());
+            booking.setPay(bookingDTO.getPay());
+            booking.setPhone(bookingDTO.getPhone());
+            booking.setPrice(bookingDTO.getPrice());
+            Optional<Seat> seatOptional = seatRepository.findById(bookingDTO.getSeat().getId());
+            if (seatOptional.isPresent()) {
+                booking.setSeat(seatOptional.get());
+            }
+            Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
+            if (userOptional.isPresent()) {
+                booking.setUser(userOptional.get());
+            }
+            bookingRepository.save(booking);
+        }
         return null;
     }
 

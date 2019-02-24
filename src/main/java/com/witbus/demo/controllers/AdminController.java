@@ -1,10 +1,7 @@
 package com.witbus.demo.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.witbus.demo.dao.models.Bus;
-import com.witbus.demo.dao.models.BusOwner;
-import com.witbus.demo.dao.models.Seat;
-import com.witbus.demo.dao.models.User;
+import com.witbus.demo.dao.models.*;
 import com.witbus.demo.dao.repository.BusOwnerRepository;
 import com.witbus.demo.dao.repository.UserRepository;
 import com.witbus.demo.dto.*;
@@ -195,6 +192,7 @@ public class AdminController {
         if (session.getAttribute("user") == null) {
             mav.setViewName("redirect:/");
         } else {
+            mav.addObject("busOwner", adminService.listBusOwner());
             mav.addObject("bus", new BusDTO());
             mav.setViewName("addBus");
         }
@@ -247,6 +245,7 @@ public class AdminController {
         //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
         Bus bus = adminService.detailBus(id);
         if(bus != null){
+            mav.addObject("busOwner", adminService.listBusOwner());
             mav.addObject("edit",bus);
         }
 
@@ -284,6 +283,7 @@ public class AdminController {
         if (session.getAttribute("user") == null) {
             mav.setViewName("redirect:/");
         } else {
+            mav.addObject("bus", adminService.listBus());
             mav.addObject("seat", new SeatDTO());
             mav.setViewName("addSeat");
         }
@@ -319,7 +319,8 @@ public class AdminController {
 
         //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
         Seat seat = adminService.detailSeat(id);
-        mav.addObject("edit",seat);
+        mav.addObject("bus", adminService.listBus());
+        mav.addObject("detail",seat);
 
         mav.setViewName("detailSeat");
         return mav;
@@ -336,7 +337,8 @@ public class AdminController {
         //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
         Seat seat = adminService.detailSeat(id);
         if(seat != null){
-            mav.addObject("edit",seat);
+            mav.addObject("seat",seat);
+            mav.addObject("bus", adminService.listBus());
         }
 
         mav.setViewName("editSeat");
@@ -350,103 +352,271 @@ public class AdminController {
         mav.setViewName("redirect:/seat");
         return mav;
     }
-//    @GetMapping(value = "/seat")
-//    public Response<List<SeatDTO>> seat() {
-//        List<SeatDTO> seatDTOList = adminService.listSeat();
-//        return new Response<>(true, seatDTOList, "Succsess full!");
-//    }
-//
-//    @GetMapping(value = "/seatList/{id}")
-//    public Response<List<SeatDTO>> seatListId(@PathVariable(value = "id") Long id) {
-//        List<SeatDTO> seatDTOList = adminService.seatListId(id);
-//        return new Response<>(true, seatDTOList, "Succsess full!");
-//    }
-//
-//    @PostMapping(value = "/seatProcess")
-//    public Response<SeatDTO> addSeatProcess(@RequestBody SeatDTO seatDTO) {
-//        seatDTO = adminService.addSeat(seatDTO);
-//
-//        return new Response<>(true, seatDTO, " Add Seat Successful full!");
-//    }
-//
-//    @GetMapping(value = "/seat/{id}/delete")
-//    public Response<SeatDTO> removeSeat(@PathVariable(value = "id") Long id) {
-//        SeatDTO seatDTO = adminService.removeSeat(id);
-//        return new Response<>(true, seatDTO, "Successful remove");
-//    }
-////    @PutMapping(value = "/seat/{id}/update")
-////    public Response<SeatDTO>  updateSeatProcess(@PathVariable(value = "id") Long id){
-////        SeatDTO seatDTO = adminService.updateSeat(id);
-////        return new Response<>(true, seatDTO, "Successful full!");
-////    }
 
     //------------------------------Users---------------------------------///
     @GetMapping(value = "/users")
-    public Response<List<UserDTO>> users() {
-        List<UserDTO> userDTOList = adminService.listUser();
-        return new Response<>(true, userDTOList, "Succsess full!");
-    }
-
-    @PostMapping(value = "/usersProcess")
-    public Response<UserDTO> addUsersProcess(@RequestBody UserDTO userDTO) {
-        User user = userRepository.findByUserExist(userDTO.getName());
-
-        if (user == null) {
-            adminService.addUser(userDTO);
-            return new Response<>(true, userDTO, "Successful Register");
-        } else {
-            return new Response<>(false, null, "Register fail because of User exist, please enter new Username");
+    public ModelAndView users(HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
         }
+
+        mav.addObject("user", adminService.listUser());
+
+        mav.setViewName("users");
+        return mav;
+    }
+    @GetMapping(value = "/addUser")
+    public ModelAndView addUser(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null) {
+            mav.setViewName("redirect:/");
+        } else {
+            mav.addObject("user", new UserDTO());
+            mav.setViewName("addUser");
+        }
+
+        return mav;
+    }
+    @PostMapping(value = "/usersProcess")
+    public ModelAndView addUsersProcess(UserDTO userDTO, HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+        mav.addObject("user",adminService.addUser(userDTO));
+        mav.setViewName("redirect:/user");
+        return mav;
+    }
+    @GetMapping(value = "/removeUser/{id}/delete")
+    public ModelAndView removeUser(@PathVariable(value = "id") Long id, SeatDTO seatDTO, HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("user",adminService.removeUser(id));
+        mav.setViewName("redirect:/users");
+        return mav;
+    }
+    @GetMapping(value = "/admin-detailUser-{id}")
+    public ModelAndView detailUser(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/admin-login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        User user = adminService.detailUser(id);
+        mav.addObject("detail",user);
+
+        mav.setViewName("detailUser");
+        return mav;
+    }
+    @GetMapping(value = "/admin-updateUser-{id}")
+    public ModelAndView updateUser(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        User user = adminService.detailUser(id);
+        if(user != null){
+            mav.addObject("user",user);
+        }
+
+        mav.setViewName("editUser");
+        return mav;
     }
 
-    @GetMapping(value = "/users/{id}/delete")
-    public Response<UserDTO> removeUser(@PathVariable(value = "id") Long id) {
-        UserDTO userDTO = adminService.removeUser(id);
-        return new Response<>(true, userDTO, "Successful remove");
+    @PostMapping(value = "/admin-updateUser-process")//rồi chặn ở dòng đầu-> run->debug server-> nhấnn nút F8 , muốn kết thúc debug thì F10
+    public ModelAndView updateUserProcess( UserDTO userDTO){
+        ModelAndView mav = new ModelAndView();
+        adminService.updateUser(userDTO);
+        mav.setViewName("redirect:/users");
+        return mav;
     }
 
     //------------------------------Offer---------------------------------///
     @GetMapping(value = "/offers")
-    public Response<List<OfferDTO>> offers() {
-        List<OfferDTO> offerDTOList = adminService.listOffer();
-        return new Response<>(true, offerDTOList, "Succsess full!");
+    public ModelAndView Offer(HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+
+        mav.addObject("offer", adminService.listOffer());
+
+        mav.setViewName("offer");
+        return mav;
+    }
+    @GetMapping(value = "/addOffer")
+    public ModelAndView addOffer(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null) {
+            mav.setViewName("redirect:/");
+        } else {
+            mav.addObject("offer", new OfferDTO());
+            mav.setViewName("addOffer");
+        }
+
+        return mav;
+    }
+    @PostMapping(value = "/offerProcess")
+    public ModelAndView addOfferProcess(OfferDTO offerDTO, HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+        mav.addObject("offer",adminService.addOffer(offerDTO));
+        mav.setViewName("redirect:/offers");
+        return mav;
+    }
+    @GetMapping(value = "/removeOffer/{id}/delete")
+    public ModelAndView removeOffer(@PathVariable(value = "id") Long id,  HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("user",adminService.removeOffer(id));
+        mav.setViewName("redirect:/offers");
+        return mav;
+    }
+    @GetMapping(value = "/admin-detailOffer-{id}")
+    public ModelAndView detailOffer(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/admin-login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        Offer offer = adminService.detailOffer(id);
+        mav.addObject("detail",offer);
+
+        mav.setViewName("detailOffer");
+        return mav;
+    }
+    @GetMapping(value = "/admin-updateOffer-{id}")
+    public ModelAndView updateOffer(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        Offer offer = adminService.detailOffer(id);
+        if(offer != null){
+            mav.addObject("offer",offer);
+        }
+
+        mav.setViewName("editOffer");
+        return mav;
     }
 
-    @PostMapping(value = "/offersProcess")
-    public Response<OfferDTO> addOffersProcess(@RequestBody OfferDTO offerDTO) {
-        offerDTO = adminService.addOffer(offerDTO);
-        return new Response<>(true, offerDTO, "Successful full!");
+    @PostMapping(value = "/admin-updateOffer-process")//rồi chặn ở dòng đầu-> run->debug server-> nhấnn nút F8 , muốn kết thúc debug thì F10
+    public ModelAndView updateOfferProcess( OfferDTO offerDTO){
+        ModelAndView mav = new ModelAndView();
+        adminService.updateOffer(offerDTO);
+        mav.setViewName("redirect:/offers");
+        return mav;
     }
-
-    @GetMapping(value = "/offers/{id}/delete")
-    public Response<OfferDTO> removeOffer(@PathVariable(value = "id") Long id) {
-        OfferDTO offerDTO = adminService.removeOffer(id);
-        return new Response<>(true, offerDTO, "Successful remove");
-    }
-//    @PutMapping(value = "/offers/{id}/update")
-//    public Response<OfferDTO>  updateOfferProcess(@PathVariable(value = "id") Long id){
-//        OfferDTO offerDTO = adminService.updateOffer(id);
-//        return new Response<>(true, offerDTO, "Successful full!");
-//    }
-
 
     //------------------------------Booking---------------------------------///
     @GetMapping(value = "/booking")
-    public Response<List<BookingDTO>> booking() {
-        List<BookingDTO> bookingDTOList = adminService.listBooking();
-        return new Response<>(true, bookingDTOList, "Succsess full!");
+    public ModelAndView Booking(HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+        mav.addObject("seats", adminService.listSeat());
+        mav.addObject("booking", adminService.listBooking());
+
+        mav.setViewName("booking");
+        return mav;
+    }
+    @GetMapping(value = "/addBooking")
+    public ModelAndView addBooking(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null) {
+            mav.setViewName("redirect:/");
+        } else {
+            mav.addObject("seats", adminService.listSeat());
+            mav.addObject("user", adminService.listUser());
+            mav.addObject("booking", new BookingDTO());
+            mav.setViewName("addBooking");
+        }
+
+        return mav;
+    }
+    @PostMapping(value = "/bookingProcess")
+    public ModelAndView addBookingProcess(BookingDTO bookingDTO, HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+        mav.addObject("booking",adminService.addBooking(bookingDTO));
+        mav.setViewName("redirect:/booking");
+        return mav;
     }
 
-    @GetMapping(value = "/bookingListBySeat/{id}")
-    public Response<List<BookingDTO>> bookingListBySeat(@PathVariable(value = "id") Long id) {
-        List<BookingDTO> bookingDTOS = adminService.bookingListBySeatId(id);
-        return new Response<>(true, bookingDTOS, "Succsess full!");
+    @GetMapping(value = "/removeBooking/{id}/delete")
+    public ModelAndView removeBooking(@PathVariable(value = "id") Long id,  HttpSession session) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("booking",adminService.removeBooking(id));
+        mav.setViewName("redirect:/booking");
+        return mav;
+    }
+    @GetMapping(value = "/admin-detailBooking-{id}")
+    public ModelAndView detailBooking(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/admin-login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        Booking booking = adminService.detailBooking(id);
+        mav.addObject("seats", adminService.listSeat());
+        mav.addObject("user", adminService.listUser());
+        mav.addObject("detail",booking);
+
+        mav.setViewName("detailBooking");
+        return mav;
+    }
+    @GetMapping(value = "/admin-updateBooking-{id}")
+    public ModelAndView updateBooking(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
+    ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("user") == null){
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+
+        //Giờ muốn kiểm tra có lấy đc hay k mình thêm check: về nguyên tắc thì phải lấy được dữ liệu mới  model qua
+        Booking booking = adminService.detailBooking(id);
+        if(booking != null){
+            mav.addObject("booking",booking);
+        }
+
+        mav.setViewName("editBooking");
+        return mav;
     }
 
-    @GetMapping(value = "/booking/{id}/delete")
-    public Response<BookingDTO> removeBooking(@PathVariable(value = "id") Long id) {
-        BookingDTO bookingDTO = adminService.removeBooking(id);
-        return new Response<>(true, bookingDTO, "Successful remove");
+    @PostMapping(value = "/admin-updateBooking-process")//rồi chặn ở dòng đầu-> run->debug server-> nhấnn nút F8 , muốn kết thúc debug thì F10
+    public ModelAndView updateBookingProcess( BookingDTO bookingDTO){
+        ModelAndView mav = new ModelAndView();
+        adminService.updateBooking(bookingDTO);
+        mav.setViewName("redirect:/booking");
+        return mav;
     }
 
 }

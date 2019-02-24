@@ -188,7 +188,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="user : ${users}">
+                                    <tr th:each="user : ${user}">
                                         <td>
                                             <a th:href="@{/seatList/{id}(id=${user.id})}">
                                                 <button type="button" class="btn btn-xs btn-link">
@@ -197,19 +197,23 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a th:href="@{/seatList/{id}(id=${user.id})}">
+
                                                 <button type="button" class="btn btn-xs btn-link">
                                                     <div th:text="${user.name}"></div>
                                                 </button>
-                                            </a>
+
                                         </td>
                                         <td class="duc" th:text="${user.phone}"></td>
                                         <td class="duc" th:text="${user.email}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-xs-xs btn-warning" style="color: #fff">
-                                                Update
-                                            </button>
-                                            <button class="btn btn-xs-xs btn-info">Detail</button>
+                                            <a th:href="@{/admin-updateUser-{id}(id=${user.id})}">
+                                                <button type="button" class="btn btn-xs-xs btn-warning" style="color: #fff">
+                                                    Update
+                                                </button>
+                                            </a>
+                                            <a th:href="@{/admin-detailUser-{id}(id=${user.id})}">
+                                                <button class="btn btn-xs-xs btn-info">Detail</button>
+                                            </a>
                                             <a th:href="@{/removeUser/{id}/delete(id=${user.id})}">
                                                 <button class="btn btn-xs-xs btn-danger">Remove</button>
                                             </a>

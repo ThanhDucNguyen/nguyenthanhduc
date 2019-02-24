@@ -215,10 +215,14 @@
                                         <td class="duc" th:text="${buss.endTime}"></td>
                                         <td class="duc">$<span th:text="${buss.priceDefault}"></span></td>
                                         <td>
-                                            <button type="button" class="btn btn-xs-xs btn-warning" style="color: #fff">
-                                                Update
-                                            </button>
-                                            <button class="btn btn-xs-xs btn-info">Detail</button>
+                                            <a th:href="@{/admin-updateBus-{id}(id=${buss.id})}">
+                                                <button type="button" class="btn btn-xs-xs btn-warning" style="color: #fff">
+                                                    Update
+                                                </button>
+                                            </a>
+                                            <a th:href="@{/admin-detailBus-{id}(id=${buss.id})}">
+                                                <button class="btn btn-xs-xs btn-info">Detail</button>
+                                            </a>
                                             <a th:href="@{/removeBus/{id}/delete(id=${buss.id})}">
                                                 <button class="btn btn-xs-xs btn-danger">Remove</button>
                                             </a>

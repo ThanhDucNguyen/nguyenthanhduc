@@ -165,25 +165,16 @@
                     <div class="list-seat">
                       <div th:each="seat : ${seats}" >
                           <span th:if="${seat.status == true}">
-                                 <a th:href="@{/bookingListBySeat/{id}(id=${seat.id})}">
-                              <button type="button" class="item-already" style="color: #fff" >
-                                <p class="name" th:text="${seat.name}">
-                              </button>
-                                  </a>
+                            <button type="button" class="item-already" th:value="${seat.name}" style="color: #fff" ></button>
+                            <button type="button" class="btn btn-primary btn-sm">Detail</button>
 
-
-                            </p>
                           </span>
-                        <span th:if="${seat.status == false}">
-                        <a href="#">
-                          <button type="button" class="item" style="color: #fff" >
-                            <p class="name" th:text="${seat.name}">
-                          </button>
-                        </a>
-
-
-                        </p>
-                        </span>
+                          <span th:if="${seat.status == false}">
+                              <button type="button" class="item" style="color: #fff" >
+                                <p class="name" th:text="${seat.name}"></p>
+                              </button>
+                              <button type="button" class="btn btn-primary btn-sm">Detail</button>
+                          </span>
                       </div>
                     </div>
                     <div class="notes">

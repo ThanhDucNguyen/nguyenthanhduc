@@ -159,19 +159,19 @@
                             <div class="form-row">
                               <div class="form-group col-md-2">
                                 <label >Status</label>
-                                <input type="text" class="form-control" placeholder="Status" th:field="*{status}">
-                                <!--<select  class="form-control" th:field="*{status}">-->
-                                  <!--<option>0</option>-->
-                                  <!--<option>1</option>-->
-                                <!--</select> -->
+                                <!--<input type="text" class="form-control" placeholder="Status" th:field="*{status}">-->
+                                <select  class="form-control" th:field="*{status}">
+                                  <option th:value="'1'" th:text="Đã-Booking"></option>
+                                  <option th:value="'0'" th:text="Chưa-Booking"></option>
+                                </select>
                               </div>
                               <div class="form-group col-md-4">
                                 <label >Type</label>
-                                <input type="text" class="form-control" placeholder="Seat Type" th:field="*{seatType}">
-                                <!--<select  class="form-control" th:field="*{seatType}">-->
-                                  <!--<option>Nguoi lon</option>-->
-                                  <!--<option>Tre em</option>-->
-                                <!--</select> -->
+                                <!--<input type="text" class="form-control" placeholder="Seat Type" th:field="*{seatType}">-->
+                                <select  class="form-control" th:field="*{seatType}">
+                                  <option  th:value="'VIP'" th:text="VIP"></option>
+                                  <option  th:value="'Thuong'" th:text="Thường"></option>
+                                </select>
                               </div>
                               <div class="form-group col-md-2">
                                 <label for="inputZip">Price</label>
@@ -179,12 +179,10 @@
                               </div>
                               <div class="form-group col-md-4">
                                 <label >Bus</label>
-                                <input type="text" class="form-control" placeholder="Name" th:field="*{bus.id}">
-                                <!--<select id="feInputState" class="form-control" th:field="*{bus.id}">-->
-                                  <!--<option>1</option>-->
-                                  <!--<option>2</option>-->
-                                  <!--<option>...</option>-->
-                                <!--</select>-->
+                                <!--<input type="text" class="form-control" placeholder="Name" th:field="*{bus.id}">-->
+                                <select id="feInputState" class="form-control" th:field="*{bus.id}">
+                                  <option th:each="list : ${bus}" th:value="${list.id}" th:text="${list.name}">1</option>
+                                </select>
                               </div>
                             </div>
                             <button type="submit" class="btn btn-accent">ADD SEAT</button>

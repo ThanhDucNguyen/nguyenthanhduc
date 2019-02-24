@@ -9,7 +9,8 @@ import java.util.List;
 
 @Service
 public interface SearchService {
-    List<BusSeatDTO> searchTour(TourDTO tourDTO);
+    List<BusDTO> searchTour(BusDTO busDTO);
 
     List<BusDTO> listBus();
+
 }

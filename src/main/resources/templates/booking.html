@@ -157,7 +157,7 @@
                 <div class="card card-small mb-4">
                   <div class="card-header border-bottom">
                     <h6 class="m-0" style="float: left;">List Booking</h6>
-                    <a href="/addBus"><button type="button" class="mb-2 btn btn-sm btn-outline-success mr-1" style="margin-left: 38%;float: left;">
+                    <a href="/addBooking"><button type="button" class="mb-2 btn btn-sm btn-outline-success mr-1" style="margin-left: 38%;float: left;">
                       New Item</button></a>
                   </div>
                   <div class="card-body p-0 pb-3 text-center">
@@ -166,9 +166,6 @@
                         <tr>
                           <th scope="col" class="border-0">Id</th>
                           <th scope="col" class="border-0">Name</th>
-                          <th scope="col" class="border-0">Phone</th>
-                          <th scope="col" class="border-0">Pay</th>
-                          <th scope="col" class="border-0">Booking Date</th>
                           <th scope="col" class="border-0">Price</th>
                           <th scope="col" class="border-0">Number ticket</th>
                           <th scope="col" class="border-0">Option</th>
@@ -178,14 +175,15 @@
                       <tr th:each="book : ${booking}">
                         <td th:text="${book.id}"></td>
                         <td th:text="${book.name}"></td>
-                        <td th:text="${book.phone}"></td>
-                        <td th:text="${book.pay}"></td>
-                        <td th:text="${book.pay}"></td>
                         <td>$<span th:text="${book.price}"></span></td>
                         <td th:text="${book.number}"></td>
                           <td>
-                            <button type="button" class="btn btn-xs btn-warning" style="color: #fff">Update</button>
-                            <button class="btn btn-xs-xs btn-info">Detail</button>
+                            <a th:href="@{/admin-updateBooking-{id}(id=${book.id})}">
+                              <button type="button" class="btn btn-xs btn-warning" style="color: #fff">Update</button>
+                            </a>
+                            <a th:href="@{/admin-detailBooking-{id}(id=${book.id})}">
+                              <button class="btn btn-xs-xs btn-info">Detail</button>
+                            </a>
                             <a th:href="@{/removeBooking/{id}/delete(id=${book.id})}">
                               <button class="btn btn-xs-xs btn-danger">Remove</button>
                             </a>
