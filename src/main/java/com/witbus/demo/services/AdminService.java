@@ -52,4 +52,6 @@ public interface AdminService {
     BookingDTO addBooking(BookingDTO bookingDTO);
     Booking detailBooking(Long id);
     BookingDTO updateBooking(BookingDTO bookingDTO);
+    Object sendHelp(HelpDTO helpDTO);
+
 }

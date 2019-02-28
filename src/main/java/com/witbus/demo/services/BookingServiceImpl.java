@@ -73,21 +73,20 @@ public class BookingServiceImpl implements BookingService {
         try {
 
             helper.setTo(saveBooking.getEmail());
-            helper.setText("\nHi: " + saveBooking.getName() +
-                            "\nPhone: " + saveBooking.getPhone() +
+            helper.setText("\nChào: " + saveBooking.getName() +
+                            "\nSố điện thoại của bạn: " + saveBooking.getPhone() +
                             "\nEmail: " + saveBooking.getEmail() +
-                            "\nBus Owner: "+saveBooking.getSeat().getBus().getBusOwner().getName()+
-                            "\nBus Name: "+saveBooking.getSeat().getBus().getName()+
-                            "\nOrigin: "+saveBooking.getSeat().getBus().getOrigin()+
-                            " ---> Destination: "+saveBooking.getSeat().getBus().getDestination()+
-                            "\nDate: "+saveBooking.getSeat().getBus().getDate()+
-                            "\nStart time: "+saveBooking.getSeat().getBus().getStartTime()+
-                            "\nSeat: " + saveBooking.getSeat().getName() +
-                            "\nPrice: " + saveBooking.getPrice() +
-                            "\nPay: " + saveBooking.getPay() +
-                            "\nCode number booking: " + saveBooking.getNumber() +
+                            "\nDịch vụ xe bạn chọn: "+saveBooking.getSeat().getBus().getBusOwner().getName()+
+                            "\nMã loại xe: "+saveBooking.getSeat().getBus().getName()+
+                            "\nTuyến: "+saveBooking.getSeat().getBus().getOrigin()+
+                            " ---> "+saveBooking.getSeat().getBus().getDestination()+
+                            "\nNgày đặt xe: "+saveBooking.getSeat().getBus().getDate()+
+                            "\nThời gian: "+saveBooking.getSeat().getBus().getStartTime()+
+                            "\nGhế: " + saveBooking.getSeat().getName() +
+                            "\nGiá: " + saveBooking.getPrice() +
+                            "\nMã code: " + saveBooking.getNumber() +
                             "\n-------------------------------------------" +
-                            "\nTHANK YOU FOR READING THE LETTER"
+                            "\nCẢM ƠN BẠN ĐÃ SỬ DỤNG ỨNG DỤNG CỦA CHÚNG TÔI"
             );
             helper.setSubject("Mail From Spring Boot");
         } catch (MessagingException e) {

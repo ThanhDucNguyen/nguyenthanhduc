@@ -50,13 +50,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="/busOwner">
+                <a class="nav-link " href="/busOwner">
                   <i class="material-icons">vertical_split</i>
                   <span>Bus Owner</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="/bus">
+                <a class="nav-link active" href="/bus">
                   <i class="material-icons">note_add</i>
                   <span>Bus</span>
                 </a>
@@ -106,7 +106,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar rounded-circle mr-2" th:src="@{/images/avatars/0.jpg}" alt="User Avatar">
-                    <span class="d-none d-md-inline-block" th:if="${session.user != null} " th:text="${session.user.name}"></span>
+                    <span class="d-none d-md-inline-block">Sierra Brooks</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-small">
                     <a class="dropdown-item" href="user-profile-lite.html">
@@ -151,18 +151,49 @@
                     <li class="list-group-item p-3">
                       <div class="row">
                         <div class="col">
-                          <form th:action="@{/busOwnerProcess}" method="post" role="form" th:object="${busOwner}">
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="feFirstName">Name</label>
-                                <input type="text" class="form-control" id="feFirstName" placeholder="Name" th:field="*{name}"> </div>
+                          <form role="form" th:object="${edit}">
+                            <div class="form-group">
+                              <label >Name</label>
+                              <input type="text" class="form-control" placeholder="Name" th:field="*{name}" readonly>
+                            </div>
+                            <div class="form-group">
+                              <label >Plate</label>
+                              <input type="text" class="form-control" placeholder="Plate" th:field="*{plate}" readonly>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="feFirstName">Email</label>
-                                <input type="text" class="form-control" id="email12345" placeholder="Name" th:field="*{email}"> </div>
+                                <label for="feFirstName">Start Time</label>
+                                <input type="text" class="form-control" id="feFirstName" placeholder="Start Time"  th:field="*{startTime}" readonly> </div>
+                              <div class="form-group col-md-6">
+                                <label for="feLastName">End Time</label>
+                                <input type="text" class="form-control" id="feLastName" placeholder="End Time" th:field="*{endTime}" readonly> </div>
                             </div>
-                            <button type="submit" class="btn btn-accent">ADD BUS OWNER</button>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="feEmailAddress">Origin</label>
+                                <input type="text" class="form-control" id="feEmailAddress" placeholder="Origin" th:field="*{origin}" readonly> </div>
+                              <div class="form-group col-md-6">
+                                <label for="fePassword">Destination</label>
+                                <input type="text" class="form-control" id="fePassword" placeholder="Destination" th:field="*{destination}" readonly> </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="feInputCity">Date</label>
+                                <input type="date" class="form-control" id="feInputCity" th:field="*{date}" readonly> </div>
+                              <div class="form-group col-md-2">
+                                <label for="inputZip">Price</label>
+                                <input type="text" class="form-control" id="inputZip" th:field="*{priceDefault}" readonly>  </div>
+                              <div class="form-group col-md-4">
+                                <label >Bus Owner</label>
+                                <input type="text" class="form-control" th:field="*{busOwner.id}" readonly>
+                                <!--<select id="feInputState" class="form-control">-->
+                                  <!--<option>Viet Tan</option>-->
+                                  <!--<option>Minh Quoc</option>-->
+                                  <!--<option>...</option>-->
+                                <!--</select>-->
+                              </div>
+                            </div>
+
                           </form>
                         </div>
                       </div>

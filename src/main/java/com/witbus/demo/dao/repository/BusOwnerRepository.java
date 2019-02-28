@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface BusOwnerRepository extends JpaRepository<BusOwner, Long> {
     @Query(value = "select *from bus_owner where bus_owner_id =?1", nativeQuery = true)
     BusOwner findBusOwnerById(Long id);
+
+    @Query(value = "select * from bus_owner where bus_owner_email=?1 and password=?2", nativeQuery = true)
+    BusOwner findByManager(String busOwnerName, String password);
 }

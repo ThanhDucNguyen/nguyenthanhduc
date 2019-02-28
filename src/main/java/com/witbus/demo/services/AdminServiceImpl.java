@@ -4,14 +4,20 @@ import com.witbus.demo.dao.models.*;
 import com.witbus.demo.dao.repository.*;
 import com.witbus.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+    @Autowired
+    private JavaMailSender sender;
     @Autowired
     private AdminRepository adminRepository;
     private BusRepository busRepository;
@@ -36,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
             userDTO.setId(user.getId());
         }
         return userDTO;
-
     }
 
     @Override
@@ -47,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
             BusOwnerDTO busOwnerDTO = new BusOwnerDTO();
             busOwnerDTO.setId(busOwner.getId());
             busOwnerDTO.setName(busOwner.getName());
-
+            busOwnerDTO.setEmail(busOwner.getEmail());
             busOwnerDTOS.add(busOwnerDTO);
         }
 
@@ -57,7 +62,25 @@ public class AdminServiceImpl implements AdminService {
     public BusOwnerDTO addBusOwner(BusOwnerDTO busOwnerDTO) {
         BusOwner busOwner = new BusOwner();
         busOwner.setName(busOwnerDTO.getName());
+        busOwner.setEmail(busOwnerDTO.getEmail());
+        busOwner.setPassword("witbus"+busOwnerDTO.getNumberPass());
         busOwnerRepository.save(busOwner);
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+
+            helper.setTo(busOwner.getEmail());
+            helper.setText("\nXin kinh chào nhà xe: " +busOwner.getName() +
+                    "\nMật khẩu truy cập quản lý của bạn: " + busOwner.getPassword() +
+                    "\n-------------------------------------------" +
+                    "\nCHÚC NHÀ XE LUÔN THÀNH CÔNG"
+            );
+            helper.setSubject("Mail From Spring Boot");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        sender.send(message);
         return null;
     }
 
@@ -73,7 +96,8 @@ public class AdminServiceImpl implements AdminService {
         if( busOwnerOptional.isPresent()){
             BusOwner busOwner =busOwnerOptional.get();
             busOwner.setName(busOwnerDTO.getName());
-
+            busOwner.setEmail(busOwnerDTO.getEmail());
+            busOwner.setPassword(busOwnerDTO.getPassword());
             busOwnerRepository.save(busOwner);
         }
         return  busOwnerDTO;
@@ -521,5 +545,27 @@ public class AdminServiceImpl implements AdminService {
             bookingDTOS.add(bookingDTO);
         }
         return bookingDTOS;
+    }
+
+    @Override
+    public Object sendHelp(HelpDTO helpDTO) {
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+
+            helper.setTo(helpDTO.getEmail());
+            helper.setText("\nHi: " +helpDTO.getName() +
+                    "\nEmail của khách hàng: " + helpDTO.getEmailUser() +
+                    "\nVấn đề của khách hàng: " + helpDTO.getInfo() +
+                    "\n-------------------------------------------" +
+                    "\nCHÚC BẠN LUÔN THÀNH CÔNG"
+            );
+            helper.setSubject("Mail From Spring Boot");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        sender.send(message);
+        return null;
     }
 }

@@ -99,9 +99,9 @@
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
         <!--<small style="color: #f44336" class="error" th:text="${session.error}"></small>-->
-        <form class="form-signin" th:action="@{/loginProcess}" method="post" role="form" th:object="${user}">
+        <form class="form-signin" th:action="@{/loginManagerProcess}" method="post" role="form" th:object="${owner}">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" th:field="*{name}" id="inputEmail" class="form-control" placeholder="User Name" required autofocus>
+            <input type="text" th:field="*{email}" id="inputEmail" class="form-control" placeholder="User Name" required autofocus>
             <input type="password" th:field="*{password}" id="inputPassword" class="form-control" placeholder="Password" required>
             <div id="remember" class="checkbox">
                 <label>
