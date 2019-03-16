@@ -2,16 +2,19 @@ package com.witbus.demo.services;
 
 import com.witbus.demo.dao.models.Bus;
 import com.witbus.demo.dao.models.BusOwner;
+import com.witbus.demo.dao.models.Seat;
 import com.witbus.demo.dao.models.User;
 import com.witbus.demo.dao.repository.*;
 import com.witbus.demo.dto.BusDTO;
 import com.witbus.demo.dto.BusOwnerDTO;
+import com.witbus.demo.dto.SeatDTO;
 import com.witbus.demo.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WebServiceImpl implements WebService{
@@ -59,5 +62,39 @@ public class WebServiceImpl implements WebService{
             busDTOS.add(busDTO);
         }
         return busDTOS;
+    }
+
+    @Override
+    public List<SeatDTO> listGhe(Long id) {
+        List<SeatDTO> seatDTOS = new ArrayList<>();
+        List<Seat> seats = seatRepository.listSeat(id);
+        for (Seat seat:seats){
+            SeatDTO seatDTO = new SeatDTO();
+            seatDTO.setId(seat.getId());
+            seatDTO.setName(seat.getName());
+            seatDTO.setStatus(seat.getStatus());
+            seatDTOS.add(seatDTO);
+        }
+        return seatDTOS;
+    }
+    @Override
+    public BusDTO addBus(BusDTO busDTO) {
+
+        Bus bus = new Bus();
+        bus.setPlate(busDTO.getPlate());
+        bus.setName(busDTO.getName());
+        bus.setOrigin(busDTO.getOrigin());
+        bus.setDestination(busDTO.getDestination());
+        bus.setStartTime(busDTO.getStartTime());
+        bus.setEndTime(busDTO.getEndTime());
+        bus.setDistanceTime(busDTO.getDistanceTime());
+        bus.setDate(busDTO.getDate());
+        bus.setPriceDefault(busDTO.getPriceDefault());
+        Optional<BusOwner> busOwnerOptional = busOwnerRepository.findById(busDTO.getBusOwner().getId());
+        if (busOwnerOptional.isPresent()) {
+            bus.setBusOwner(busOwnerOptional.get());
+            busRepository.save(bus);
+        }
+        return null;
     }
 }

@@ -60,19 +60,19 @@ public class WebController {
             session.setAttribute("owner", busOwnerDTO);
             session.removeAttribute("error");
             mav.addObject("list", busOwnerDTO);
-            mav.setViewName("busownerManager");
+            mav.setViewName("redirect:/quan-ly-xe");
         } else {
 //            session.setAttribute("error", userDTO.getMessage());
             mav.addObject("owner", new BusOwnerDTO());
-            mav.setViewName("redirect:/loginManager");
+            mav.setViewName("redirect:/owner");
         }
         return mav;
     }
-    @GetMapping(value = "/indexManager")
+    @GetMapping(value = "/quan-ly-xe")
     public ModelAndView indexManager(HttpSession session){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("owner") == null) {
-            mav.setViewName("redirect:/loginManager");
+            mav.setViewName("redirect:/owner");
         } else {
             mav.addObject("owner", new BusOwnerDTO());
             mav.setViewName("busownerManager");
@@ -90,9 +90,9 @@ public class WebController {
         return mav;
     }
     @GetMapping(value = "/manager-addBus")
-    public ModelAndView addBus(HttpSession session) {
+    public ModelAndView addBus(HttpSession session,BusOwnerDTO busOwnerDTO) {
         ModelAndView mav = new ModelAndView();
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("owner") == null) {
             mav.setViewName("redirect:/owner");
         } else {
             mav.addObject("busOwner", adminService.listBusOwner());
@@ -105,12 +105,12 @@ public class WebController {
     @PostMapping(value = "/manager-busProcess")
     public ModelAndView addBusProcess(BusDTO busDTO, HttpSession session) throws IOException {
         ModelAndView mav = new ModelAndView();
-        if (session.getAttribute("user") == null){
+        if (session.getAttribute("owner") == null){
             mav.setViewName("redirect:/owner");
             return mav;
         }
-        mav.addObject("bus",adminService.addBus(busDTO));
-        mav.setViewName("redirect:/indexManager");
+        mav.addObject("bus",webService.addBus(busDTO));
+        mav.setViewName("redirect:/quan-ly-xe");
         return mav;
     }
     @GetMapping(value = "/manager-removeBus/{id}/delete")
@@ -124,7 +124,7 @@ public class WebController {
     public ModelAndView detailBus(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
-        if (session.getAttribute("user") == null){
+        if (session.getAttribute("owner") == null){
             mav.setViewName("redirect:/owner");
             return mav;
         }
@@ -140,7 +140,7 @@ public class WebController {
     public ModelAndView updateBus(HttpSession session,@PathVariable(value = "id") Long id/*  ở đây chỉ lấy thông tin ra thôi chứ chưa phải cần -> nên nó báo bad Request
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
-        if (session.getAttribute("user") == null){
+        if (session.getAttribute("owner") == null){
             mav.setViewName("redirect:/owner");
             return mav;
         }
@@ -161,6 +161,16 @@ public class WebController {
         ModelAndView mav = new ModelAndView();
         adminService.updateBus(busDTO);
         mav.setViewName("redirect:/owner");
+        return mav;
+    }
+    @GetMapping(value = "/danh-sach-ghe-28-wit-0-bus-43--JKEWHREF-FEF-SDFSD-FBTBWVH-SDF{id}-EFEWF54-DSFF")
+    public ModelAndView danhSachGhe(@PathVariable(value = "id")Long id, HttpSession session){
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute("owner") != null) {
+            mav.setViewName("redirect:/owner");
+        }
+        mav.addObject("listSeat",webService.listGhe(id));
+        mav.setViewName("seatManager");
         return mav;
     }
 }

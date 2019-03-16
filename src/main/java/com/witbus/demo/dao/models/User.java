@@ -35,8 +35,8 @@ public class User implements Serializable {
     @Column(name = "role")
     private Integer role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Booking> bookings;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    private Set<Booking> bookings;
 
     public Integer getRole() {
         return role;
@@ -78,11 +78,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
-    }
+//    public Set<Booking> getBookings() {
+//        return bookings;
+//    }
+//
+//    public void setBookings(Set<Booking> bookings) {
+//        this.bookings = bookings;
+//    }
 }

@@ -422,8 +422,8 @@ public class AdminServiceImpl implements AdminService {
             bookingDTO.setSeat(seatDTO);
 
             UserDTO userDTO = new UserDTO();
-            userDTO.setId(booking.getUser().getId());
-            bookingDTO.setUser(userDTO);
+//            userDTO.setId(booking.getUser().getId());
+//            bookingDTO.setUser(userDTO);
 
             bookingDTOS.add(bookingDTO);
         }
@@ -444,10 +444,10 @@ public class AdminServiceImpl implements AdminService {
         if (seatOptional.isPresent()) {
             booking.setSeat(seatOptional.get());
         }
-        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
-        if (userOptional.isPresent()) {
-            booking.setUser(userOptional.get());
-        }
+//        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
+//        if (userOptional.isPresent()) {
+//            booking.setUser(userOptional.get());
+//        }
         bookingRepository.save(booking);
         return null;
     }
@@ -480,10 +480,10 @@ public class AdminServiceImpl implements AdminService {
             if (seatOptional.isPresent()) {
                 booking.setSeat(seatOptional.get());
             }
-            Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
-            if (userOptional.isPresent()) {
-                booking.setUser(userOptional.get());
-            }
+//            Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
+//            if (userOptional.isPresent()) {
+//                booking.setUser(userOptional.get());
+//            }
             bookingRepository.save(booking);
         }
         return null;
@@ -510,8 +510,8 @@ public class AdminServiceImpl implements AdminService {
             bookingDTO.setSeat(seatDTO);
 
             UserDTO userDTO = new UserDTO();
-            userDTO.setId(booking.getUser().getId());
-            bookingDTO.setUser(userDTO);
+//            userDTO.setId(booking.getUser().getId());
+//            bookingDTO.setUser(userDTO);
 
             bookingDTOS.add(bookingDTO);
         }
@@ -539,8 +539,8 @@ public class AdminServiceImpl implements AdminService {
             bookingDTO.setSeat(seatDTO);
 
             UserDTO userDTO = new UserDTO();
-            userDTO.setId(booking.getUser().getId());
-            bookingDTO.setUser(userDTO);
+//            userDTO.setId(booking.getUser().getId());
+//            bookingDTO.setUser(userDTO);
 
             bookingDTOS.add(bookingDTO);
         }

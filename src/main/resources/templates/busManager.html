@@ -170,7 +170,7 @@
                         <div class="card card-small mb-4">
                             <div class="card-header border-bottom">
                                 <h6 class="m-0" style="float: left;">List Bus Owner</h6>
-                                <a href="/manager-addBus">
+                                <a th:href="@{/manager-addBus}">
                                     <button type="button" class="mb-2 btn btn-sm btn-outline-success mr-1"
                                             style="margin-left: 38%;float: left;">
                                         New Item
@@ -196,7 +196,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <a th:href="@{/seatList/{id}(id=${buss.id})}">
+                                            <a th:href="@{/danh-sach-ghe-28-wit-0-bus-43--JKEWHREF-FEF-SDFSD-FBTBWVH-SDF{id}-EFEWF54-DSFF(id=${buss.id})}">
                                                 <button type="button" class="btn btn-xs btn-link">
                                                     <div th:text="${buss.name}"></div>
                                                 </button>

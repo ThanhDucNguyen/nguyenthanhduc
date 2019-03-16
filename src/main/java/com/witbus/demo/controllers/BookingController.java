@@ -18,5 +18,10 @@ public class BookingController {
         bookingService.booking(bookingDTO);
         return new Response<>(true, bookingDTO, "Successful!");
     }
+    @PostMapping(value = "/checkEmail")
+    public Response<BookingDTO> checkEmail(@RequestBody BookingDTO bookingDTO) {
+        bookingService.checkEmail(bookingDTO);
+        return new Response<>(true, bookingDTO, "Successful!");
+    }
 
 }

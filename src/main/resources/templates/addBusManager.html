@@ -151,7 +151,7 @@
                     <li class="list-group-item p-3">
                       <div class="row">
                         <div class="col">
-                          <form th:action="@{/busProcess}" method="post" role="form" th:object="${bus}">
+                          <form th:action="@{/manager-busProcess}" method="post" role="form" th:object="${bus}">
                             <div class="form-group">
                               <label >Name</label>
                               <input type="text" class="form-control" placeholder="Name" th:field="*{name}">
@@ -186,9 +186,8 @@
                               <div class="form-group col-md-4">
                                 <label >Bus Owner</label>
                                 <!--<input type="text" class="form-control" th:field="*{busOwner.id}">-->
-                                <select id="feInputState" class="form-control"  th:field="*{busOwner.id}">
-                                  <option  th:each="list : ${busOwner}" th:value="${list.id}" th:text="${list.name}"></option>
-
+                                <select id="feInputState" class="form-control" th:field="*{busOwner.id}">
+                                  <option th:value="${session.owner.id}" th:text="${session.owner.name}"> </option>
                                 </select>
                               </div>
                             </div>

@@ -46,14 +46,14 @@ public class BookingServiceImpl implements BookingService {
         booking.setPhone(bookingDTO.getPhone());
         booking.setEmail(bookingDTO.getEmail());
         booking.setDate(bookingDTO.getDate());
-        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
-        User user;
-        if (!userOptional.isPresent()) {
-            return;
-        } else {
-            User editUser = userOptional.get();
-            user = userRepository.save(editUser);
-        }
+//        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
+//        User user;
+//        if (!userOptional.isPresent()) {
+//            return;
+//        } else {
+//            User editUser = userOptional.get();
+//            user = userRepository.save(editUser);
+//        }
         Optional<Seat> seatOptional = seatRepository.findById(bookingDTO.getSeat().getId());
         Seat seat;
         if (seatOptional.isPresent()) {
@@ -63,7 +63,7 @@ public class BookingServiceImpl implements BookingService {
         } else {
             return;
         }
-        booking.setUser(user);
+//        booking.setUser(user);
         booking.setSeat(seat);
         Booking saveBooking = bookingRepository.save(booking);
 
@@ -87,6 +87,28 @@ public class BookingServiceImpl implements BookingService {
                             "\nMã code: " + saveBooking.getNumber() +
                             "\n-------------------------------------------" +
                             "\nCẢM ƠN BẠN ĐÃ SỬ DỤNG ỨNG DỤNG CỦA CHÚNG TÔI"
+            );
+            helper.setSubject("Mail From Spring Boot");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        sender.send(message);
+    }
+
+    @Override
+    public void checkEmail(BookingDTO bookingDTO) {
+        int min = 1;
+        int max = 9999;
+        Random rd = new Random();
+        int number = min + rd.nextInt(max - min);
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+
+            helper.setTo(bookingDTO.getEmail());
+            helper.setText("\nMã xác nhận của bạn là  " + number +
+                    " CẢM ƠN BẠN ĐÃ SỬ DỤNG ỨNG DỤNG CỦA CHÚNG TÔI"
             );
             helper.setSubject("Mail From Spring Boot");
         } catch (MessagingException e) {

@@ -16,7 +16,7 @@ public class BookingDTO {
     private Date date = new Date();
     private String name;
     private SeatDTO seat;
-    private UserDTO user;
+//    private UserDTO user;
 
     public BookingDTO() {
         int min = 1;
@@ -36,7 +36,7 @@ public class BookingDTO {
                 ", date=" + date +
                 ", name='" + name + '\'' +
                 ", seat=" + seat +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 
@@ -112,11 +112,11 @@ public class BookingDTO {
         this.seat = seat;
     }
 
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
+//    public UserDTO getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(UserDTO user) {
+//        this.user = user;
+//    }
 }

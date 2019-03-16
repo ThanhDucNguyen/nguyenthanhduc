@@ -164,17 +164,21 @@
                   <div class="card-body p-0 pb-3 text-center">
                     <div class="list-seat">
                       <div th:each="seat : ${seats}" >
+                        <a th:href="@{/admin-detailSeat-{id}(id=${seat.id})}">
                           <span th:if="${seat.status == true}">
-                            <button type="button" class="item-already" th:value="${seat.name}" style="color: #fff" ></button>
-                            <button type="button" class="btn btn-primary btn-sm">Detail</button>
-
+                            <button type="button" class="item-already" style="color: #fff" >
+                              <p class="name" th:text="${seat.name}"></p>
+                            </button>
                           </span>
+                        </a>
+                        <a th:href="@{/admin-detailSeat-{id}(id=${seat.id})}">
                           <span th:if="${seat.status == false}">
                               <button type="button" class="item" style="color: #fff" >
                                 <p class="name" th:text="${seat.name}"></p>
                               </button>
                               <button type="button" class="btn btn-primary btn-sm">Detail</button>
                           </span>
+                        </a>
                       </div>
                     </div>
                     <div class="notes">

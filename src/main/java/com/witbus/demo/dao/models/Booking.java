@@ -38,9 +38,9 @@ public class Booking implements Serializable {
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public String getName() {
         return name;
@@ -106,13 +106,13 @@ public class Booking implements Serializable {
         this.seat = seat;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Integer getNumber() {
         return number;

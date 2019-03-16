@@ -101,7 +101,7 @@ public class AdminController {
     public ModelAndView addBusOwner(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("busOwner", new BusOwnerDTO());
             mav.setViewName("addBusOwner");
@@ -132,7 +132,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 
@@ -190,7 +190,7 @@ public class AdminController {
     public ModelAndView addBus(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("busOwner", adminService.listBusOwner());
             mav.addObject("bus", new BusDTO());
@@ -222,7 +222,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 
@@ -281,7 +281,7 @@ public class AdminController {
     public ModelAndView addSeat(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("bus", adminService.listBus());
             mav.addObject("seat", new SeatDTO());
@@ -313,7 +313,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 
@@ -371,7 +371,7 @@ public class AdminController {
     public ModelAndView addUser(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("user", new UserDTO());
             mav.setViewName("addUser");
@@ -402,7 +402,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 
@@ -458,7 +458,7 @@ public class AdminController {
     public ModelAndView addOffer(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("offer", new OfferDTO());
             mav.setViewName("addOffer");
@@ -489,7 +489,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 
@@ -545,7 +545,7 @@ public class AdminController {
     public ModelAndView addBooking(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null) {
-            mav.setViewName("redirect:/");
+            mav.setViewName("redirect:/login");
         } else {
             mav.addObject("seats", adminService.listSeat());
             mav.addObject("user", adminService.listUser());
@@ -579,7 +579,7 @@ public class AdminController {
     ,sau đó ra đây để gọi nó ra và modelandview qua jsp*/){
         ModelAndView mav = new ModelAndView();
         if (session.getAttribute("user") == null){
-            mav.setViewName("redirect:/admin-login");
+            mav.setViewName("redirect:/login");
             return mav;
         }
 

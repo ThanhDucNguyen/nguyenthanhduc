@@ -153,27 +153,27 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <tr  th:object="${list}">
+                      <tr >
                         <td>
                           <button type="button" class="btn btn-xs btn-link"  >
-                            <div th:text="${list.id}"></div>
+                            <div th:text="${session.owner.id}"></div>
                           </button>
                         </td>
                         <td  >
-                          <a th:href="@{/danh-sach-xe-28-wit-0{id}-bus-43(id=${list.id})}">
+                          <a th:href="@{/danh-sach-xe-28-wit-0{id}-bus-43(id=${session.owner.id})}">
                             <button type="button" class="btn btn-xs btn-link"  >
-                              <div th:text="${list.name}"></div>
+                              <div th:text="${session.owner.name}"></div>
                             </button>
                           </a>
                         </td>
                         <td>
-                          <a th:href="@{/admin-updateBusOwner-{id}(id=${list.id})}">
+                          <a th:href="@{/admin-updateBusOwner-{id}(id=${session.owner.id})}">
                             <button type="button" class="btn btn-xs btn-warning" style="color: #fff">Update</button>
                           </a>
-                          <a th:href="@{/admin-detailBusOwner-{id}(id=${list.id})}">
+                          <a th:href="@{/admin-detailBusOwner-{id}(id=${session.owner.id})}">
                             <button class="btn btn-xs-xs btn-info">Detail</button>
                           </a>
-                          <a th:href="@{/removeBusOwner/{id}/delete(id=${list.id})}">
+                          <a th:href="@{/removeBusOwner/{id}/delete(id=${session.owner.id})}">
                             <button class="btn btn-xs-xs btn-danger" >Remove</button>
                           </a>
                         </td>
