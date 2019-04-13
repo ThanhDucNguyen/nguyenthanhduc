@@ -46,14 +46,6 @@ public class BookingServiceImpl implements BookingService {
         booking.setPhone(bookingDTO.getPhone());
         booking.setEmail(bookingDTO.getEmail());
         booking.setDate(bookingDTO.getDate());
-//        Optional<User> userOptional = userRepository.findById(bookingDTO.getUser().getId());
-//        User user;
-//        if (!userOptional.isPresent()) {
-//            return;
-//        } else {
-//            User editUser = userOptional.get();
-//            user = userRepository.save(editUser);
-//        }
         Optional<Seat> seatOptional = seatRepository.findById(bookingDTO.getSeat().getId());
         Seat seat;
         if (seatOptional.isPresent()) {
@@ -63,7 +55,6 @@ public class BookingServiceImpl implements BookingService {
         } else {
             return;
         }
-//        booking.setUser(user);
         booking.setSeat(seat);
         Booking saveBooking = bookingRepository.save(booking);
 

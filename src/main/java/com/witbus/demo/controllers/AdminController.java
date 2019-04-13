@@ -41,6 +41,7 @@ public class AdminController {
             mav.setViewName("redirect:/login");
             return mav;
         }
+        mav.addObject("busOwner", adminService.listBusOwner());
         mav.setViewName("index");
         return mav;
     }

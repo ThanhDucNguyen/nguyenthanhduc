@@ -50,33 +50,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="/bus">
-                  <i class="material-icons">vertical_split</i>
-                  <span>Bus</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/seat">
-                  <i class="material-icons">vertical_split</i>
-                  <span>Seat</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/booking">
-                  <i class="material-icons">table_chart</i>
-                  <span>Booking</span>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link " href="/offers">
                   <i class="material-icons">table_chart</i>
                   <span>Offer</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="user-profile-lite.html">
-                  <i class="material-icons">person</i>
-                  <span>Users</span>
                 </a>
               </li>
             </ul>
@@ -128,148 +104,18 @@
             <!-- End Page Header -->
             <!-- Small Stats Blocks -->
             <div class="row">
-              <div class="col-lg col-md-6 col-sm-6 mb-4">
+              <div class="col-lg col-md-12 col-sm-12 mb-4">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
                         <span class="stats-small__label text-uppercase">Bus Owner</span>
-                        <h6 class="stats-small__value count my-3">5</h6>
+                        <h6 class="stats-small__value count my-3" th:text="${busOwner.size()}"></h6>
                       </div>
                       <div class="stats-small__data">
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-1"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg col-md-6 col-sm-6 mb-4">
-                <div class="stats-small stats-small--1 card card-small">
-                  <div class="card-body p-0 d-flex">
-                    <div class="d-flex flex-column m-auto">
-                      <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Bus</span>
-                        <h6 class="stats-small__value count my-3">17</h6>
-                      </div>
-                      <div class="stats-small__data">
-                      </div>
-                    </div>
-                    <canvas height="120" class="blog-overview-stats-small-2"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg col-md-4 col-sm-6 mb-4">
-                <div class="stats-small stats-small--1 card card-small">
-                  <div class="card-body p-0 d-flex">
-                    <div class="d-flex flex-column m-auto">
-                      <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Booking</span>
-                        <h6 class="stats-small__value count my-3">200</h6>
-                      </div>
-                      <div class="stats-small__data">
-                      </div>
-                    </div>
-                    <canvas height="120" class="blog-overview-stats-small-3"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg col-md-4 col-sm-6 mb-4">
-                <div class="stats-small stats-small--1 card card-small">
-                  <div class="card-body p-0 d-flex">
-                    <div class="d-flex flex-column m-auto">
-                      <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Offer</span>
-                        <h6 class="stats-small__value count my-3">9</h6>
-                      </div>
-                      <div class="stats-small__data">
-                      </div>
-                    </div>
-                    <canvas height="120" class="blog-overview-stats-small-4"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg col-md-4 col-sm-12 mb-4">
-                <div class="stats-small stats-small--1 card card-small">
-                  <div class="card-body p-0 d-flex">
-                    <div class="d-flex flex-column m-auto">
-                      <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Users</span>
-                        <h6 class="stats-small__value count my-3">400</h6>
-                      </div>
-                      <div class="stats-small__data">
-                      </div>
-                    </div>
-                    <canvas height="120" class="blog-overview-stats-small-5"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card card-small card-post card-post--1">
-                  <div class="card-post__image" style="background-image: url('images/content-management/1.jpeg');">
-                    <a href="#" class="card-post__category badge badge-pill badge-dark">Business</a>
-                    <div class="card-post__author d-flex">
-                      <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/0.jpg');">Written by Anna Kunis</a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a class="text-fiord-blue" href="#">Conduct at an replied removal an amongst</a>
-                    </h5>
-                    <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see...</p>
-                    <span class="text-muted">28 February 2019</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card card-small card-post card-post--1">
-                  <div class="card-post__image" style="background-image: url('images/content-management/2.jpeg');">
-                    <a href="#" class="card-post__category badge badge-pill badge-info">Travel</a>
-                    <div class="card-post__author d-flex">
-                      <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/1.jpg');">Written by James Jamerson</a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a class="text-fiord-blue" href="#">Off tears are day blind smile alone had ready</a>
-                    </h5>
-                    <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...</p>
-                    <span class="text-muted">29 February 2019</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card card-small card-post card-post--1">
-                  <div class="card-post__image" style="background-image: url('images/content-management/3.jpeg');">
-                    <a href="#" class="card-post__category badge badge-pill badge-primary">Technology</a>
-                    <div class="card-post__author d-flex">
-                      <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/2.jpg');">Written by Jimmy Jackson</a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a class="text-fiord-blue" href="#">Difficult in delivered extensive at direction</a>
-                    </h5>
-                    <p class="card-text d-inline-block mb-3">Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...</p>
-                    <span class="text-muted">29 February 2019</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card card-small card-post card-post--1">
-                  <div class="card-post__image" style="background-image: url('images/content-management/4.jpeg');">
-                    <a href="#" class="card-post__category badge badge-pill badge-warning">Technology</a>
-                    <div class="card-post__author d-flex">
-                      <a href="#" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('images/avatars/3.jpg');">Written by John James</a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a class="text-fiord-blue" href="#">It so numerous if he may outlived disposal</a>
-                    </h5>
-                    <p class="card-text d-inline-block mb-3">How but sons mrs lady when. Her especially are unpleasant out alteration continuing unreserved ready road market resolution...</p>
-                    <span class="text-muted">29 February 2019</span>
                   </div>
                 </div>
               </div>

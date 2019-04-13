@@ -1,9 +1,11 @@
 package com.witbus.demo.services;
 
 import com.witbus.demo.dao.models.Bus;
+import com.witbus.demo.dao.models.BusOwner;
 import com.witbus.demo.dao.models.Seat;
 import com.witbus.demo.dao.repository.*;
 import com.witbus.demo.dto.BusDTO;
+import com.witbus.demo.dto.BusOwnerDTO;
 import com.witbus.demo.dto.BusSeatDTO;
 import com.witbus.demo.dto.TourDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SearchServiceimpl implements SearchService {
@@ -118,6 +121,40 @@ public class SearchServiceimpl implements SearchService {
             bookingDTOS.add(busDTO);
         }
 
+        return bookingDTOS;
+    }
+
+    @Override
+    public List<BusOwnerDTO> listBusOwner() {
+        List<BusOwnerDTO> busOwnerDTOS = new ArrayList<>();
+        List<BusOwner> busOwners = bus_ownerRepository.findAll();
+        for (BusOwner busOwner : busOwners) {
+            BusOwnerDTO busOwnerDTO = new BusOwnerDTO();
+            busOwnerDTO.setId(busOwner.getId());
+            busOwnerDTO.setName(busOwner.getName());
+            busOwnerDTO.setEmail(busOwner.getEmail());
+            busOwnerDTOS.add(busOwnerDTO);
+        }
+        return busOwnerDTOS;
+    }
+
+    @Override
+    public List<BusDTO> listBusById(Long id) {
+        List<BusDTO> bookingDTOS = new ArrayList<>();
+        Optional<BusOwner> busOwnerOptional = bus_ownerRepository.findById(id);
+        for (Bus bus : busOwnerOptional.get().getBus()) {
+            BusDTO busDTO = new BusDTO();
+            busDTO.setPlate(bus.getPlate());
+            busDTO.setName(bus.getName());
+            busDTO.setOrigin(bus.getOrigin());
+            busDTO.setDestination(bus.getDestination());
+            busDTO.setStartTime(bus.getStartTime());
+            busDTO.setEndTime(bus.getEndTime());
+            busDTO.setDistanceTime(bus.getDistanceTime());
+            busDTO.setDate(bus.getDate());
+            busDTO.setPriceDefault(bus.getPriceDefault());
+            bookingDTOS.add(busDTO);
+        }
         return bookingDTOS;
     }
 }

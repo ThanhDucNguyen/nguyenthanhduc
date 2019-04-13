@@ -539,8 +539,7 @@ public class AdminServiceImpl implements AdminService {
             bookingDTO.setSeat(seatDTO);
 
             UserDTO userDTO = new UserDTO();
-//            userDTO.setId(booking.getUser().getId());
-//            bookingDTO.setUser(userDTO);
+//            userDTO.setIdlistBusOwner
 
             bookingDTOS.add(bookingDTO);
         }
