@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.witbus.demo.WitBusApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.857 s - in com.witbus.demo.WitBusApplicationTests

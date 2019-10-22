@@ -1,159 +1,333 @@
-<!doctype html>
-<html class="no-js h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>WitBus</title>
-    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="styles/shards-dashboards.1.1.0.min.css">
-    <link rel="stylesheet" href="styles/extras.1.1.0.min.css">
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </head>
-  <body class="h-100">
-    <div class="color-switcher-toggle animated pulse infinite">
-      <i class="material-icons">settings</i>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Main Sidebar -->
-        <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
-          <div class="main-navbar">
-            <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-              <a class="navbar-brand w-100 mr-0" href="/" style="line-height: 25px;">
-                <div class="d-table m-auto">
-                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/avatars/logo.png" alt="Shards Dashboard">
-                  <span class="d-none d-md-inline ml-1">WitBus</span>
-                </div>
-              </a>
-              <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
-                <i class="material-icons">&#xE5C4;</i>
-              </a>
-            </nav>
-          </div>
+﻿<!DOCTYPE html>
+<html lang="vi" class="no-js mm-hover no-touch" xmlns:th="http://www.thymeleaf.org">
 
-          <div class="nav-wrapper">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="/">
-                  <i class="material-icons">edit</i>
-                  <span>Dashboard</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/busOwner">
-                  <i class="material-icons">vertical_split</i>
-                  <span>Bus Owner</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/offers">
-                  <i class="material-icons">table_chart</i>
-                  <span>Offer</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
-        <!-- End Main Sidebar -->
-        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
-          <div class="main-navbar sticky-top bg-white">
-            <!-- Main Navbar -->
-            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-              <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
-                <div class="input-group input-group-seamless ml-3">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fas fa-search"></i>
-                    </div>
-                  </div>
-                  <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
-              </form>
-              <ul class="navbar-nav border-left flex-row ">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle mr-2" src="images/avatars/0.jpg" alt="User Avatar">
-                    <span class="d-none d-md-inline-block" th:if="${session.user != null} " th:text="${session.user.name}"></span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-small">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" th:href="@{/logout}">
-                      <i class="material-icons text-danger">&#xE879;</i> Logout </a>
-                  </div>
-                </li>
-              </ul>
-              <nav class="nav">
-                <a href="#" class="nav-link nav-link-icon toggle-sidebar d-md-inline d-lg-none text-center border-left" data-toggle="collapse" data-target=".header-navbar" aria-expanded="false" aria-controls="header-navbar">
-                  <i class="material-icons">&#xE5D2;</i>
-                </a>
-              </nav>
-            </nav>
-          </div>
-          <!-- / .main-navbar -->
-          <div class="main-content-container container-fluid px-4">
-            <!-- Page Header -->
-            <div class="page-header row no-gutters py-4">
-              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">Dashboard</span>
-                <h3 class="page-title">Blog Overview</h3>
-              </div>
-            </div>
-            <!-- End Page Header -->
-            <!-- Small Stats Blocks -->
-            <div class="row">
-              <div class="col-lg col-md-12 col-sm-12 mb-4">
-                <div class="stats-small stats-small--1 card card-small">
-                  <div class="card-body p-0 d-flex">
-                    <div class="d-flex flex-column m-auto">
-                      <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Bus Owner</span>
-                        <h6 class="stats-small__value count my-3" th:text="${busOwner.size()}"></h6>
-                      </div>
-                      <div class="stats-small__data">
-                      </div>
-                    </div>
-                    <canvas height="120" class="blog-overview-stats-small-1"></canvas>
-                  </div>
+<head>
+    <title>Lâm Việt Á - Hệ thống phân phối Sàn Gỗ Cao Cấp, Sàn Nhựa Chính Hãng</title>
+    <title>Tấm ốp tường - ốp trần trong nhà CI121O</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Floordi" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="description" content="Tấm ốp tường - ốp trần trong  nhà Skywood; Sử dụng công nghệ bề mặt Homogenous - giúp cấu trúc sản phẩm chắc chắn, và độ bền màu kéo dài; Bảo hành 10 năm." />
+    <!-- SEO Customize by Le Anh Dan 0936 669 339 -->
+    <meta name="abstract" content="Công ty phân phối sàn gỗ tự nhiên và sàn gỗ công nghiệp nhập khẩu cao cấp" />
+    <meta name="copyright" content="Copyright 2019 by Floordi" />
+    <meta name="robots" content="index,follow,noodp" />
+    <meta name="Googlebot" content="index,follow" />
+    <!-- SEO Customize by Le Anh Dan End New -->
+    <link href="/favicon.png" rel="shortcut icon" />
+    <link rel="canonical" href="/tam-op-tuong-op-tran-trong-nha-ci121o/" />
+    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&amp;subset=vietnamese" rel="stylesheet">
+    <meta name="google-site-verification" content="W_nXoey8cbCAT8GyGZlA-zismVsU0hd_IV9cbk_IIZQ" />
+    <meta property="fb:app_id" content="274491509760868" />
+    <!-- SEO Customize by Le Anh Dan -->
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="Tấm ốp tường - ốp trần trong nhà CI121O" />
+    <meta property="og:description" content="Tấm ốp tường - ốp trần trong  nhà Skywood; Sử dụng công nghệ bề mặt Homogenous - giúp cấu trúc sản phẩm chắc chắn, và độ bền màu kéo dài; Bảo hành 10 năm." />
+    <meta property="og:image" content="/images/products/medium/Ceiling_Panel_CI101O-2.png" />
+    <meta property="og:url" content="/tam-op-tuong-op-tran-trong-nha-ci121o/" />
+    <meta property="og:site_name" content="FLOORDI.com - Hệ thống phân phối Sàn Gỗ Cao Cấp, Sàn Nhựa Chính Hãng" />
+    <meta name="twitter:card" content="summary" />
+    <!-- END SEO Customize by Le Anh Dan -->
+
+    <link href="public/frontend/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="public/frontend/css/styles.css" media="all" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="public/frontend/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="engine1/style.css" />
+    <script type="text/javascript" src="engine1/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="navbar.css" rel="stylesheet">
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <link rel="canonical" href="/docs/3.4/examples/navbar/">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+			CSS
+			============================================= -->
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style type="text/css">
+        :root .carbonad,
+        :root #carbonads-container,
+        :root #content > #right > .dose > .dosesingle,
+        :root #content > #center > .dose > .dosesingle {
+            display: none !important;
+        }
+    </style>
+    <style type="text/css">
+        .nav-menu a {
+            font-size: 13px;
+        }
+        
+        .nav-menu ul li a:hover {
+            color: #f42f2c;
+        }
+    </style>
+</head>
+
+<body class="product">
+    <header id="header" style="background: #fff">
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
                 </div>
-              </div>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li class="menu-active menu-has-children"><a th:href="@{'/list-all-product-'+'san-go-cong-nghiep'+'-nguyenthanhdat-sangodanang'}">
+                            Sàn gỗ công nghiệp</a>
+                            <ul>
+                                <li><a href="generic.html">Sàn gỗ Mỹ</a></li>
+                                <li><a th:href="@{'/list-product-'+'san-go-cong-nghiep'+'-nguyenthanhdat-sangodanang'+'-thai-lan'}">Sàn gỗ Thái Lan</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#dish">Sàn ngoài trời</a></li>
+                        <li><a href="#chefs">Conwood</a></li>
+                        <li><a href="#blog">Phụ kiện</a></li>
+                    </ul>
+                </nav>
+                <!-- #nav-menu-container -->
             </div>
-          </div>
-          <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Bus Owner</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Bus</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Seat</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">User</a>
-              </li>
-            </ul>
-            <span class="copyright ml-auto my-auto mr-2">Copyright © 2018
-              <a href="https://designrevision.com" rel="nofollow">Wit Bus</a>
-            </span>
-          </footer>
-        </main>
-      </div>
+        </div>
+    </header>
+    <!-- #header -->
+
+    <!-- start banner Area -->
+    <section class="banner-area relative" id="home" style="margin-top: 15px; height: 700px">
+        <div class="container">
+            <div class="row fullscreen d-flex align-items-center justify-content-start">
+                <div class="banner-content col-lg-8 col-md-12">
+                    <h4 class="text-white text-uppercase"></h4>
+                    <h1>
+								SÀN GỖ CAO CẤP				
+							</h1>
+                    <p class="text-white">
+                        Sàn gỗ cao cấp, được nhập khẩu từ Đức, Thái, Malaysia... Hãy để chúng tôi đem những điều tuyệt vời nhất đến cho gia đình bạn.
+                    </p>
+                    <a href="#" class="primary-btn header-btn text-uppercase">Hãy gọi: 0914 023 179</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div style="padding-top: 20px; margin-top: 20px;">
+        <div id="mainnav" class="hidden">
+            <div class="container">
+                <div class="navbar-header">
+                    <button data-effect="off-canvas-effect-4" data-nav="#t3-off-canvas" data-pos="left" type="button" class="btn-inverse off-canvas-toggle visible-sm visible-xs">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="mobile-search visible-sm visible-xs">
+                        <form method="post" action="/shop/search/">
+                            <input class="form-control field" name="site_search" id="s" placeholder="tìm kiếm sản phẩm..." type="text">
+                            <input class="btn-search" src="public/frontend/images/icon-search.png" alt="Tìm kiếm" type="image">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-body" class="clearfix">
+            <div id="home-content" class="clearfix">
+                <div class="container">
+                    <div id="services" class="hidden-xs clearfix">
+                        <div class="service-list service-1 hidden-sm style-1" style="margin-left: 271px;">
+                            <div class="service-content"><span class="icon-image"> </span>
+                                <div class="content">
+                                    <div class="service-title">Sản phẩm chính hãng</div>
+                                    <div class="service_other_text">Hàng nhập khẩu</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-list service-2 style-1">
+                            <div class="service-content"><span class="icon-image"> </span>
+                                <div class="content">
+                                    <div class="service-title">Miến phí vận chuyển</div>
+                                    <div class="service_other_text">Trên toàn Đất Nước</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-list service-5 style-1">
+                            <div class="service-content">
+                                <span class="icon-image"> </span>
+                                <div class="content">
+                                    <div class="service-title">Bảo hành chính hãng</div>
+                                    <div class="service_other_text">Với một cuộc gọi của bạn</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-banners clearfix">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <a href="/san-go-d8809/" target="_blank"><img alt="san go cong nghiep Lamton D8809" class="img-responsive" src="images/banners/san-go-lamton-walnut-d8809-new-color.jpg" /></a>
+                            </div>
+
+                            <div class="col-sm-6 col-xs-6">
+                                <a href="/san-go-d2300/" target="_blank"><img alt="san go cong nghiep Lamton D2300" class="img-responsive" src="images/banners/san-go-lamton-walnut-dark-d2300-new-color.jpg" /></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div id="featured-products" class="clearfix">
+                        <h3>Sản Phẩm</h3>
+                        <p class="sub-title">Chúng tôi cam kết thông tin trên Website hoàn toàn đúng với chất lượng sản phẩm</p>
+                        <div class="tab-content">
+                            <!-- Tab1 - Latest Product -->
+                            <div class="tab-pane fade in active">
+
+                                <div class="mod-products">
+                                    <!-- Indicators -->
+                                    <div class="product-cols" th:each="product : ${products}">
+                                        <div class="product-block">
+                                            <div class="thumbnail-item">
+                                                <a th:href="@{/detail-{id}-nguyenthanhdat-sangodanang(id=${product.id})}" title="Updating IMAGE">
+                                                    <img alt="Sàn gỗ công nghiệp Floorpan FP559 Magellan Oak – 12mm – AC5" title="Sàn gỗ công nghiệp Floorpan FP559 Magellan Oak – 12mm – AC5" th:src="${product.image}" class="img-responsive" style="height:201.781px; width:201.781px"></a>
+                                            </div>
+                                            <div class="product-meta">
+                                                <div class="product-name">
+                                                    <h2 class="name"><a th:href="@{/detail-{id}-nguyenthanhdat-sangodanang(id=${product.id})}" title="Sàn gỗ công nghiệp Floorpan FP559 Magellan Oak – 12mm – AC5" th:text="${product.name}"></a></h2>
+                                                    <div class="price"><span class="price-new" th:text="${product.price}"></span><span class="unit">/m2</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="example">
+                                    <div class="container">
+                                        <div class="row">
+                                            <ul class="pagination">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">4</a></li>
+                                                <li><a href="#">5</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-banners clearfix">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="/san-go-tu-nhien/" target="_blank"><img alt="sàn gỗ tự nhiên" class="img-responsive" src="images/banners/banner-san-go-tu-nhien-ekogreen.jpg" /></a>
+                            </div>
+
+                            <div class="col-sm-6 hidden-xs">
+                                <a href="/san-go-floorpan/" target="_blank"><img alt="sàn nhựa Dongwha" class="img-responsive" src="images/banners/banner-san-go-floorpan.jpg" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home-partners">
+                <div class="container">
+                    <h3>Các Thương Hiệu Hợp Tác</h3>
+                    <div class="carousel-5 carousel-fade owl-carousel owl-theme">
+                        <marquee>
+                            <div class="owl-item">
+                                <a title="Sàn Gỗ Floorpan" href="/san-go-floorpan/">
+                                    <img alt="Sàn Gỗ Floorpan" title="Sàn Gỗ Floorpan" src="images/banners/floorpan.jpg" class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="owl-item">
+                                <a title="Skywood" href="/san-go-ngoai-troi-skywood/">
+                                    <img alt="Skywood" title="Skywood" src="images/banners/skywood.jpg" class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="owl-item">
+                                <a title="Sàn thể thao" href="/">
+                                    <img alt="Sàn thể thao" title="Sàn thể thao" src="images/banners/logo-sportfloor.jpg" class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="owl-item">
+                                <a title="ArtFloor" href="/">
+                                    <img alt="ArtFloor" title="ArtFloor" src="images/banners/logo-artfloor.jpg" class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="owl-item">
+                                <a title="Sàn gỗ tự nhiên" href="/san-go-tu-nhien/">
+                                    <img alt="Sàn gỗ tự nhiên" title="Sàn gỗ tự nhiên" src="images/banners/ekogreen.jpg" class="img-responsive">
+                                </a>
+                            </div>
+
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
-    <script src="scripts/extras.1.1.0.min.js"></script>
-    <script src="scripts/shards-dashboards.1.1.0.min.js"></script>
-    <script src="scripts/app/app-blog-overview.1.1.0.js"></script>
-  </body>
+    <footer id="footer" class="clearfix">
+        <div class="footer-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12 footer-left border-right">
+                        <div class="clearfix">
+                            <div class="widget-about-us">
+                                <h1 id="site-title" class="widget-title"><p style="text-align: center; color: #018EB7">CÔNG TY TNHH LÂM VIỆT Á</p></h1> Cty TNHH Lâm Việt Á là hệ thống phân phối sỉ và lẻ các vật sản phẩm ván sàn bao gồm : conwood, sàn gỗ công nghiệp, sàn gỗ tự nhiên, sàn nhựa, sàn gỗ ngoài trời, nẹp, chân tường. Toàn bộ sản phẩm được cung cấp là các sản phẩm nhập khẩu chính hãng, có chất lượng cao, thông tin, bảo hành và độ uy tín cao để phục vụ nhu cầu của Quý khách hàng. Chúng tôi luôn sẵn sàng phục vụ.
+                                <div class="contact-info">
+                                    <ul>
+                                        <li><img src="images/icons/home-address.png" width="16px"> 137 - Nguyễn Hữu Thọ, Thành Phố Đà Nẵng</li>
+                                        <li><img src="images/icons/call-answer.png" width="13px"> 091 403 21 79</li>
+                                        <li><img src="images/icons/facebook-logo.png" width="16px"><a href="https://www.facebook.com/floordivietnam/"> Sàn gỗ Lâm Việt Á </a> - <img src="images/icons/mail.png" width="16px"> info@floordi.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 footer-left border-right">
+                        <img src="images/banners/banner-footer.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script type="text/javascript" src="engine1/wowslider.js"></script>
+    <script type="text/javascript" src="engine1/script.js"></script>
+
+    <script src="./Theme/js/btr-menu.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#navbar").btrmenu();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')
+    </script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="js/easing.min.js"></script>
+    <script src="js/hoverIntent.js"></script>
+    <script src="js/superfish.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
 </html>

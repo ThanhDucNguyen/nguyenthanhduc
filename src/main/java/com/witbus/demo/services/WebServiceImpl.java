@@ -1,100 +1,137 @@
 package com.witbus.demo.services;
 
-import com.witbus.demo.dao.models.Bus;
-import com.witbus.demo.dao.models.BusOwner;
-import com.witbus.demo.dao.models.Seat;
+
+import com.witbus.demo.dao.models.Product;
 import com.witbus.demo.dao.models.User;
-import com.witbus.demo.dao.repository.*;
-import com.witbus.demo.dto.BusDTO;
-import com.witbus.demo.dto.BusOwnerDTO;
-import com.witbus.demo.dto.SeatDTO;
+import com.witbus.demo.dao.repository.ProductRepository;
+import com.witbus.demo.dao.repository.UserRepository;
+import com.witbus.demo.dto.ProductDTO;
 import com.witbus.demo.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 @Service
 public class WebServiceImpl implements WebService{
-
-    private AdminRepository adminRepository;
-    private BusRepository busRepository;
-    private BusOwnerRepository busOwnerRepository;
-    private SeatRepository seatRepository;
+    @Autowired
+    private JavaMailSender sender;
+    private ProductRepository productRepository;
     private UserRepository userRepository;
-    private BookingRepository bookingRepository;
-    private OfferRepository offerRepository;
 
-    public WebServiceImpl(AdminRepository adminRepository, BusRepository busRepository, BusOwnerRepository busOwnerRepository, SeatRepository seatRepository, UserRepository userRepository, BookingRepository bookingRepository, OfferRepository offerRepository) {
-
-        this.adminRepository = adminRepository;
-        this.busRepository = busRepository;
-        this.busOwnerRepository = busOwnerRepository;
-        this.seatRepository = seatRepository;
+    public WebServiceImpl(ProductRepository productRepository, UserRepository userRepository) {
+        this.productRepository = productRepository;
         this.userRepository = userRepository;
-        this.bookingRepository = bookingRepository;
-        this.offerRepository = offerRepository;
+    }
+
+    static List<ProductDTO> products(List<Product> products) {
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product : products) {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(product.getId());
+            productDTO.setName(product.getName());
+            productDTO.setPrice(product.getPrice());
+            productDTO.setImage(product.getImage());
+            productDTO.setOrigin(product.getOrigin());
+            productDTO.setColor(product.getColor());
+            productDTO.setType(product.getType());
+            productDTO.setMainten(product.getMainten());
+            productDTOS.add(productDTO);
+        }
+        return productDTOS;
     }
 
     @Override
-    public BusOwnerDTO loginManager(BusOwnerDTO busOwnerDTO) {
-        BusOwner busOwner = busOwnerRepository.findByManager(busOwnerDTO.getEmail(),busOwnerDTO.getPassword());
-        if (busOwner != null){
-            busOwnerDTO.setId(busOwner.getId());
-            busOwnerDTO.setName(busOwner.getName());
-        }
-        return busOwnerDTO;
+    public List<ProductDTO> listProduct() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = products(products);
+        return productDTOS;
     }
 
     @Override
-    public List<BusDTO> listXe(Long id) {
-        List<BusDTO> busDTOS = new ArrayList<>();
-        List<Bus> buses = busRepository.listXe(id);
-        for (Bus bus:buses){
-            BusDTO busDTO = new BusDTO();
-            busDTO.setId(bus.getId());
-            busDTO.setName(bus.getName());
-            busDTO.setOrigin(bus.getOrigin());
-            busDTO.setDestination(bus.getDestination());
-
-            busDTOS.add(busDTO);
-        }
-        return busDTOS;
+    public Product detailProduct(Long id) {
+        Product product = productRepository.findProductById(id);
+        return product;
     }
 
     @Override
-    public List<SeatDTO> listGhe(Long id) {
-        List<SeatDTO> seatDTOS = new ArrayList<>();
-        List<Seat> seats = seatRepository.listSeat(id);
-        for (Seat seat:seats){
-            SeatDTO seatDTO = new SeatDTO();
-            seatDTO.setId(seat.getId());
-            seatDTO.setName(seat.getName());
-            seatDTO.setStatus(seat.getStatus());
-            seatDTOS.add(seatDTO);
-        }
-        return seatDTOS;
+    public List<ProductDTO> listAllProductByValue( String type) {
+        List<Product> products = productRepository.listProductByType(type);
+        List<ProductDTO> productDTOS = products(products);
+        return productDTOS;
+    }
+
+    @Override
+    public List<ProductDTO> listProductByValue(String type, String origin) {
+        List<Product> products = productRepository.listProductByTypeAndOrigin(type, origin);
+        List<ProductDTO> productDTOS = products(products);
+        return productDTOS;
+    }
+
+    @Override
+    public String sendMail(String phone, String product) {
+//        MimeMessage message = sender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        try {
+//
+//            helper.setTo("ntduc2812@gmail.com");
+//            helper.setText("\nXin kinh chào nhà xe: " +
+//                    "\nMật khẩu truy cập quản lý của bạn: "+
+//                    "\n-------------------------------------------" +
+//                    "\nCHÚC NHÀ XE LUÔN THÀNH CÔNG"
+//            );
+//            helper.setSubject("Mail From Spring Boot");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//        sender.send(message);
+        return "OK";
     }
     @Override
-    public BusDTO addBus(BusDTO busDTO) {
-
-        Bus bus = new Bus();
-        bus.setPlate(busDTO.getPlate());
-        bus.setName(busDTO.getName());
-        bus.setOrigin(busDTO.getOrigin());
-        bus.setDestination(busDTO.getDestination());
-        bus.setStartTime(busDTO.getStartTime());
-        bus.setEndTime(busDTO.getEndTime());
-        bus.setDistanceTime(busDTO.getDistanceTime());
-        bus.setDate(busDTO.getDate());
-        bus.setPriceDefault(busDTO.getPriceDefault());
-        Optional<BusOwner> busOwnerOptional = busOwnerRepository.findById(busDTO.getBusOwner().getId());
-        if (busOwnerOptional.isPresent()) {
-            bus.setBusOwner(busOwnerOptional.get());
-            busRepository.save(bus);
+    public UserDTO login(UserDTO userDTO) {
+        User user = userRepository.login(userDTO.getUserName(),userDTO.getPassword());
+        if (user != null){
+            userDTO.setId(user.getId());
         }
+        return userDTO;
+    }
+
+    @Override
+    public ProductDTO addProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.getName());
+        product.setType(productDTO.getType());
+        product.setOrigin(productDTO.getOrigin());
+        product.setPrice(productDTO.getPrice());
+        product.setImage(productDTO.getImage());
+        String image = productDTO.getImage();
+        BufferedImage bImage = null;
+        try {
+            File initialImage = new File("C://fakepath/Skype/Picture/2019/06/22T20/12/58/435Z.jpeg");
+            bImage = ImageIO.read(initialImage);
+
+            ImageIO.write(bImage, "jpg", new File("C://Users/PC/Desktop/image1.jpg"));
+            ImageIO.write(bImage, "png", new File("C://Users/PC/Desktop/image1.png"));
+
+        } catch (IOException e) {
+            System.out.println("Exception occured :" + e.getMessage());
+        }
+        System.out.println("Images were written succesfully.");
+        product.setMainten(productDTO.getMainten());
+        product.setColor(productDTO.getColor());
+        productRepository.save(product);
         return null;
     }
 }

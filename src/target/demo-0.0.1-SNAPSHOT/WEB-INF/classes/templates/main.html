@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head">
+    <meta charset="UTF-8">
+    <title>WitBus</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link th:href="@{/main.css}" rel="stylesheet"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row2" style="width: 100%;">
+        <div class="menu">
+            <ul>
+                <li class="select"><a href="/">BUS OWNER</a> </li>
+                <li class="select"><a href="/bus">BUS</a> </li>
+                <li class="select"><a href="/seat">SEAT</a> </li>
+                <li class="select"><a href="/offer">OFFER</a> </li>
+                <li class="logout"><a th:href="@{/logout}" class="btn btn-danger" style="float: right">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+</script>
+</body>
+</html>
